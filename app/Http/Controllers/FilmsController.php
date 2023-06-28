@@ -14,14 +14,15 @@ class FilmsController extends Controller
     public function allFilms(Request $request)
     {
         $films = Films::query()->orderBy('id','desc')->paginate(10);
-        // foreach ($films as $key => $film) {
-        //     $film->name_img_film=Storage::url($film->name_img_film);
+        //   foreach ($films as $key => $film) {
+        //     $film->name_img_film= Storage::url($film->name_img_film);
         //     $films[$key]=$film;
         // }
         foreach ($films as $key => $film) {
             $film->name_img_film=asset( Storage::url($film->name_img_film));
             $films[$key]=$film;
         }
+// dd( $films);
         // $films=$films->map(function ($film) {
         //     $film->name_img_film=Storage::url($film->name_img_film);
         //     return  $film;
@@ -138,10 +139,10 @@ public function GenreFilms(Request $request,$id)
 //     $sun=$value->films()->get();
 //    }
 $sun=$genres->films()->orderBy('id','desc')->paginate(10);
-// foreach ($sun as $key => $value) {
-//     $value->name_img_film=asset( Storage::url($value->name_img_film));
-//     $sun[$key]=$value;
-// }
+foreach ($sun as $key => $value) {
+    $value->name_img_film=asset( Storage::url($value->name_img_film));
+    $sun[$key]=$value;
+}
  return response()->json($sun); 
 
 }
