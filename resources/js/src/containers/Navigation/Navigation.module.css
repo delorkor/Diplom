@@ -1,0 +1,43 @@
+.Navigation {
+  margin-left: 62px;
+  width: 158px;
+  color: #80858b;
+  margin-top: 56px;
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+.ListNavi {
+  list-style-type: none;
+  min-width: 123px;
+  /* min-height: 216px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.Linknavigation {
+  /* margin-bottom: 40px; */
+  cursor: pointer;
+  text-decoration: none;
+  color: #80858b;
+}
+.Linknavigation:hover {
+  color: #7b61ff;
+}
+
+.NameList {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 24px;
+}
+.List {
+  margin-bottom: 10px;
+}

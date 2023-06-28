@@ -1,0 +1,222 @@
+
+.modalHeader{
+width: 100%;
+height: 36px;
+    display: flex;
+    justify-content: space-between;
+}
+.modalHeaderExit{
+width: 24px;
+height: 24px;
+color: #AFB2B6;
+vertical-align: middle;
+text-align: center;
+cursor: pointer;
+}
+.modalHeaderText{
+    vertical-align: middle;
+    
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    color: #fff;
+    }
+
+   .sortText{
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin-top: 48px;
+   } 
+   .sortTextGanre{
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #fff;
+    margin-top: 48px;
+   } 
+
+.sortYour{
+margin-top: 10px;
+display: flex;
+width: 100%;
+height: 52px;
+border-radius: 10px;
+border: 4px solid #323537;
+    }
+
+
+
+.ButSort{
+background-color: #242426;;
+width: 50%;
+height: 100%;
+color: #80858B;
+padding: 0;
+border: none;
+background: none;
+cursor: pointer;
+transition: 0.4s all;
+}
+
+.ButSortActiv{
+    cursor: pointer;
+    width: 50%;
+    padding: 0;
+    border: none;
+    background: none;
+    background-color: #323537;
+    color: #fff;
+    transition: 0.4s all;
+}
+
+.ButSortActiv:hover{
+    background-color: #7B61FF;
+}
+
+.ButSort:hover{
+    color: #fff;
+    background-color: #7B61FF;
+}
+
+.line{
+    margin-top: 32px;
+    background-color:#323537 ;
+    height: 1px;
+    width: 100%;
+    color: #323537;
+    border: 0;
+}
+.GanreWrapper{
+border-radius: 10px;
+ background-color:#323537 ;
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 6px;
+    min-height: 100px;
+    margin-top: 8px;
+
+}
+
+.ButGanre{
+    margin: 6px ;
+    background-color: #242426;
+    height: 32px;
+    width: 100%;
+    transition: 0.4s all;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    border: 2px solid #242426 ;
+    border-radius: 6px;
+    }
+
+    
+.ButGanre:hover{
+   
+    background-color: #7B61FF;
+}
+
+    .sortTextYears{
+        font-family: 'Exo 2';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #fff;
+        margin-top: 24px;
+       } 
+
+
+.YearDate{
+
+    display: flex;
+    width: 100%;
+    height: 56px;
+    justify-content: space-between;
+    border-radius: 10px;
+    color: #80858B;
+    margin-top: 8px;
+
+       }
+
+.InpytDate{
+height: 100%;
+width: 45.4%;
+background-color: #323537;
+border: none;
+border-radius: 10px;
+padding: 16px 20px;
+font-family: 'Exo 2';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+}
+
+
+.ButModal{
+   
+    background-color: #323537;
+    height: 56px;
+    width: 45.4%;
+  
+
+    color: #fff;
+    cursor: pointer;
+    border: 2px solid #323537 ;
+    border-radius: 6px;
+    transition: 0.4s all;
+    }
+
+    .modalWrapperButton{
+/* position: absolute; */
+        display: flex;
+        width: 100%;
+        height: 56px;
+        justify-content: space-between;
+        border-radius: 10px;
+        color: #80858B;
+        margin-top: 48px;
+        left: 40px;
+    bottom: 48px;
+    
+           }
+
+.ButModal:hover{
+    background-color: #7B61FF;
+}
+
+.navClass{
+    position: absolute;
+    top: 0;
+    right: 0;
+   width: 100vw;
+   height: 100vh;
+   background-color: rgba(32, 32, 33,0.2);
+}
+
+.ModalFilterActiv{
+    position: absolute;
+   display: inline-block;
+   top: 0;
+   right: 0;
+    height: 100vh;
+    width: 518px;
+    background-color: #242426;
+    padding: 48px 40px 48px 40px;
+    z-index: 2;
+}
+
+.ModalFilterNone{
+   display: none;
+}

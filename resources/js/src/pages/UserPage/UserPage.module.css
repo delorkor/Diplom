@@ -1,0 +1,196 @@
+.addFilms {
+  width: 77.7%;
+  margin-right: 65px;
+}
+
+.addFilmsWrapper {
+  margin-top: 56px;
+
+  width: 79.37%;
+
+  min-height: 784px;
+}
+
+.blockDescription {
+  min-height: 168px;
+  background-color: #242426;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 44px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 20px;
+}
+
+.InpytDescr {
+  width: 100%;
+  height: 56px;
+  background: #323537;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  margin-top: 8px;
+}
+
+.InpytSub {
+  width: 20%;
+  height: 56px;
+  background: #323537;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  margin-top: 40px;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16px;
+  transition: 0.4s all;
+}
+.InpytSub:hover {
+  background-color: #7b61ff;
+}
+.InputWrapper {
+  width: 45.77%;
+  display: flex;
+  justify-content: left;
+}
+.InputWrapperUpdate {
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.InpytDescrFile {
+  direction: none;
+  width: 16.8%;
+  height: 56px;
+  background: #323537;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  /* margin-right: 40px; */
+  margin-top: 32px;
+  cursor: pointer;
+}
+
+.InpytDescrFileNone {
+  width: 0.1px;
+  height: 0.1px;
+  border: none;
+  z-index: -1;
+  display: none;
+}
+
+.blockTextarea {
+  padding: 40px;
+  height: 168px;
+  background-color: #242426;
+  height: 200px;
+  margin-top: 52px;
+  width: 100%;
+  border-radius: 10px;
+}
+.blockDescriptionDate {
+  margin-top: 30px;
+  height: 0px;
+  /* height: 168px; */
+  background-color: #242426;
+  border-radius: 10px;
+  display: none;
+  justify-content: space-between;
+  padding-top: 44px;
+  padding-left: 40px;
+  padding-right: 40px;
+  transition: 1s all;
+}
+.Textarea {
+  background-color: #323537;
+  color: #fff;
+  width: 100%;
+
+  height: 100%;
+  resize: none;
+  overflow: hidden;
+  border: none;
+}
+
+.TextDescr {
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 24px;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-left: 20px;
+}
+.TextGenre {
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 24px;
+  color: #fff;
+  display: inline-block;
+}
+
+.blockButton {
+  padding: 40px 0 40px;
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+}
+.ButtonAdd {
+  margin-left: 40px;
+  width: 266px;
+  height: 54px;
+  background: #323537;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.4s all;
+}
+.ButtonAddSave {
+  /* display: none; */
+  margin-left: 40px;
+  width: 266px;
+  height: 54px;
+  background: #323537;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.4s all;
+}
+.ButtonAdd:hover {
+  background-color: #7b61ff;
+}
+.Check {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-family: "Exo 2";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 24px;
+  color: #fff;
+  vertical-align: top;
+}
+.CheckBox {
+  margin-right: 20px;
+  /* display: inline-block; */
+}
+.wrapperCheck {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}

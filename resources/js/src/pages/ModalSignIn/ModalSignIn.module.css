@@ -1,0 +1,133 @@
+.Modal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: url("../../img/Frame1439.png") no-repeat center center/cover
+        rgb(0, 0, 0);
+    z-index: 1;
+}
+
+.containers {
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+.window {
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: 574px;
+    height: 540px;
+    background: #242426;
+    border-radius: 10px;
+}
+
+.windowRegister {
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: 574px;
+    min-height: 732px;
+    background: #242426;
+    border-radius: 10px;
+}
+.buttinAuth {
+    width: 100%;
+    height: 56px;
+    background: #7b61ff;
+    border-radius: 10px;
+    margin-top: 40px;
+    border: none;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.textEmail {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.textPasword {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+.ImputForm {
+    width: 100%;
+    height: 56px;
+    background: #323537;
+    border-radius: 10px;
+    border: none;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+}
+.txtLable {
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+
+.txtLablePas {
+    color: #80858b;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    margin-top: 8px;
+}
+.HeadingModal {
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+}
+
+.headerModal {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    margin-top: 32px;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #80858b;
+}
+
+.headerModalLink {
+    cursor: pointer;
+    color: #7b61ff;
+}
+
+.logo {
+    width: 158px;
+    height: 40px;
+    position: absolute;
+    top: 43px;
+    left: 62px;
+}
