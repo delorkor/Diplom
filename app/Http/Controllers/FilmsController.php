@@ -14,14 +14,14 @@ class FilmsController extends Controller
     public function allFilms(Request $request)
     {
         $films = Films::query()->orderBy('id','desc')->paginate(10);
-        foreach ($films as $key => $film) {
-            $film->name_img_film=Storage::url($film->name_img_film);
-            $films[$key]=$film;
-        }
         // foreach ($films as $key => $film) {
-        //     $film->name_img_film=asset( Storage::url($film->name_img_film));
+        //     $film->name_img_film=Storage::url($film->name_img_film);
         //     $films[$key]=$film;
         // }
+        foreach ($films as $key => $film) {
+            $film->name_img_film=asset( Storage::url($film->name_img_film));
+            $films[$key]=$film;
+        }
         // $films=$films->map(function ($film) {
         //     $film->name_img_film=Storage::url($film->name_img_film);
         //     return  $film;
