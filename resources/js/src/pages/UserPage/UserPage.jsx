@@ -8,175 +8,180 @@ import { useNavigate } from "react-router-dom";
 import pagesRoutes from "../../routes/pagesRoutes";
 import { Link } from "../../components/Link/Link";
 import { useDispatch, useSelector } from "react-redux";
+import { UpdateUser } from "../../reqests/UpdateUser";
+import {
+    stateEmail,
+    stateName,
+    statePasswor,
+    statePasswordOld,
+} from "../../store/features/UserSlice";
+import { type } from "@testing-library/user-event/dist/type";
 export const UserPage = () => {
-  const navigate = useNavigate();
-  const [setFiles, setFilesFunction] = useState(null);
+    const navigate = useNavigate();
+    // const [Data, setDataFunction] = useState("");
 
-  const [unwrapHeigt, unwrapHeigtFunction] = useState([0, "none"]);
+    const [unwrapHeigt, unwrapHeigtFunction] = useState([0, "none"]);
+    const dispatch = useDispatch();
 
-  const UserData = useSelector((state) => state.user);
-  const unwrap = () => {
-    unwrapHeigtFunction([700, "block"]);
-  };
-  console.log(UserData);
+    const UserData = useSelector((state) => state.user);
+    const [Passworn_now_two, Passworn_now_twoFunction] = useState("");
+    console.log(UserData);
+    console.log(Passworn_now_two);
+    const unwrap = () => {
+        unwrapHeigtFunction([700, "block"]);
+    };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+    // useEffect(
+    //     (UserData) => {
+    //         setDataFunction({
+    //             email: UserData.email,
+    //             id: UserData.id,
+    //             name: UserData.name,
+    //             password: UserData.password,
+    //             password_now: UserData.password_now,
+    //         });
+    //     },
+    //     [UserData]
+    // );
+    // console.log(Data);
 
-  useEffect(() => {
-    // Conegory();
-    // Genre();
-  }, []);
+    const UpdateUserName = (e) => {
+        dispatch(stateName({ name: e.target.value }));
+    };
+    const UpdateUserEmail = (e) => {
+        dispatch(stateEmail({ email: e.target.value }));
+    };
+    const statePasswor_old = (e) => {
+        dispatch(statePasswordOld({ password: e.target.value }));
+    };
+    const statePassword = (e) => {
+        dispatch(statePasswor({ password_now: e.target.value }));
+    };
 
-  // console.log(getGanre);
-  // const hendlerUpload = async (data) => {
-  //   console.log(data);
-  //   const form = new FormData();
+    const SaveUpdate = async (e) => {
+        // e.preventDefault();
+        if (UserData.password_now == "") {
+            if (UserData.password_now == Passworn_now_two) {
+                const Users = await UpdateUser(UserData);
+                console.log(Users);
+            }
+        } else {
+            const Users = await UpdateUser(UserData);
+            console.log(UserData);
+        }
+    };
 
-  //   form.append("films", setFiles);
-  //   form.append("name", data["name"]);
-  //   form.append("category_id", data["category_id"]);
-  //   form.append("description", data["description"]);
-  //   form.append("Year", data["Year"]);
-  //   // form.append("genre_id", data["check"]);
-  //   data["check"].forEach((element) => {
-  //     form.append("genre_id[]", element);
-  //   });
+    return (
+        <div className={style.addFilms}>
+            <div className={style.addFilmsWrapper}>
+                <div className={style.blockDescription}>
+                    <div className={style.InputWrapper}>
+                        <div className={style.TextDescr}>Логин:</div>
+                        <div className={style.TextDescr}>{UserData.name}</div>
+                    </div>
+                    <div className={style.InputWrapper}>
+                        <div className={style.TextDescr}>Email:</div>
+                        <div className={style.TextDescr}>{UserData.email}</div>
+                    </div>
 
-  //   console.log(data);
+                    <Link onClick={unwrap} className={style.InpytSub}>
+                        Редактировать{" "}
+                    </Link>
+                </div>
+                <form
+                    // onSubmit={handleSubmit(hendlerUpload)}
+                    encType="multipart/form-data"
+                >
+                    <div
+                        style={{
+                            height: `${unwrapHeigt[0] + "px"}`,
+                            display: `${unwrapHeigt[1]}`,
+                            transition: "1s all",
+                        }}
+                        className={style.blockDescriptionDate}
+                    >
+                        <div className={style.InputWrapperUpdate}>
+                            <div className={style.TextDescr}>Логин</div>
+                            <Input
+                                type="text"
+                                onChange={UpdateUserName}
+                                className={style.InpytDescr}
+                                value={UserData.name}
+                            ></Input>
+                        </div>
+                        <div className={style.InputWrapperUpdate}>
+                            <div className={style.TextDescr}>Email</div>
+                            <Input
+                                onChange={UpdateUserEmail}
+                                type="text"
+                                className={style.InpytDescr}
+                                value={UserData.email}
+                            />
+                        </div>
+                        <div className={style.InputWrapperUpdate}>
+                            <div className={style.TextDescr}>Пароль</div>
+                            <Input
+                                type="password"
+                                className={style.InpytDescr}
+                                onChange={statePasswor_old}
+                                // placeholder="name"
+                                // value={"s"}
+                                // readonly="readonly"
+                            ></Input>
+                        </div>
+                        <div className={style.InputWrapperUpdate}>
+                            <div className={style.TextDescr}>Новый Пароль</div>
+                            <Input
+                                // {...register("password_now")}
+                                type="password"
+                                onChange={statePassword}
+                                className={style.InpytDescr}
+                                // placeholder="name"
+                                // value={"s"}
+                                readonly="readonly"
+                            ></Input>
+                        </div>
+                        <div className={style.InputWrapperUpdate}>
+                            <div className={style.TextDescr}>
+                                Подтверждение пароля
+                            </div>
+                            <Input
+                                type="password"
+                                onChange={(e) =>
+                                    Passworn_now_twoFunction(e.target.value)
+                                }
+                                className={style.InpytDescr}
+                                // placeholder="name"
+                                // value={"s"}
+                                readonly="readonly"
+                            ></Input>
+                        </div>
+                    </div>
 
-  //   form.append("name_img_film", setPoster);
-  //   console.log(form.get("Year"));
-
-  //   if (addFilms(form)) {
-  //     navigate(pagesRoutes.MAIN);
-  //   }
-  // };
-
-  return (
-    <div className={style.addFilms}>
-      <div className={style.addFilmsWrapper}>
-        <form
-          // onSubmit={handleSubmit(hendlerUpload)}
-          encType="multipart/form-data"
-        >
-          <div className={style.blockDescription}>
-            <div className={style.InputWrapper}>
-              <div className={style.TextDescr}>Логин:</div>
-              <div className={style.TextDescr}>{UserData.name}</div>
+                    <div className={style.blockButton}>
+                        <ButtonComp
+                            className={style.ButtonAdd}
+                            onClick={() => {
+                                navigate(pagesRoutes.MAIN);
+                            }}
+                        >
+                            Cancel
+                        </ButtonComp>
+                        {unwrapHeigt[0] === 0 ? (
+                            ""
+                        ) : (
+                            <ButtonComp
+                                // style={{ display: `${unwrapHeigt[1]}` }}
+                                onClick={SaveUpdate}
+                                className={style.ButtonAddSave}
+                                type="submit"
+                            >
+                                Save
+                            </ButtonComp>
+                        )}
+                    </div>
+                </form>
             </div>
-            <div className={style.InputWrapper}>
-              <div className={style.TextDescr}>Email:</div>
-              <div className={style.TextDescr}>{UserData.email}</div>
-            </div>
-
-            {/* <div className={style.InputWrapper}> */}
-            <Link
-              onClick={unwrap}
-              // type="submit"
-              className={style.InpytSub}
-              // value="Редактировать"
-            >
-              Редактировать{" "}
-            </Link>
-          </div>
-
-          <div
-            style={{
-              height: `${unwrapHeigt[0] + "px"}`,
-              display: `${unwrapHeigt[1]}`,
-              transition: "1s all",
-            }}
-            className={style.blockDescriptionDate}
-          >
-            <div className={style.InputWrapperUpdate}>
-              <div className={style.TextDescr}>Логин</div>
-              <Input
-                {...register("name")}
-                type="text"
-                onChange={() => {}}
-                className={style.InpytDescr}
-                // placeholder="name"
-                value={UserData.name}
-                readonly="readonly"
-              ></Input>
-            </div>
-            <div className={style.InputWrapperUpdate}>
-              <div className={style.TextDescr}>Email</div>
-              <Input
-                onChange={() => {}}
-                {...register("email")}
-                readonly="readonly"
-                type="text"
-                className={style.InpytDescr}
-                // placeholder="name"
-                value={UserData.email}
-              ></Input>
-            </div>
-            <div className={style.InputWrapperUpdate}>
-              <div className={style.TextDescr}>Пароль</div>
-              <Input
-                {...register("password")}
-                type="text"
-                onChange={() => {}}
-                className={style.InpytDescr}
-                // placeholder="name"
-                // value={"s"}
-                readonly="readonly"
-              ></Input>
-            </div>
-            <div className={style.InputWrapperUpdate}>
-              <div className={style.TextDescr}>Новый Пароль</div>
-              <Input
-                {...register("password_now")}
-                type="text"
-                onChange={() => {}}
-                className={style.InpytDescr}
-                // placeholder="name"
-                // value={"s"}
-                readonly="readonly"
-              ></Input>
-            </div>
-            <div className={style.InputWrapperUpdate}>
-              <div className={style.TextDescr}>Подтверждение пароля</div>
-              <Input
-                {...register("Confirm_password")}
-                type="text"
-                onChange={() => {}}
-                className={style.InpytDescr}
-                // placeholder="name"
-                // value={"s"}
-                readonly="readonly"
-              ></Input>
-            </div>
-          </div>
-
-          <div className={style.blockButton}>
-            <ButtonComp
-              className={style.ButtonAdd}
-              onClick={() => {
-                navigate(pagesRoutes.MAIN);
-              }}
-            >
-              Cancel
-            </ButtonComp>
-            {unwrapHeigt[0] === 0 ? (
-              ""
-            ) : (
-              <ButtonComp
-                // style={{ display: `${unwrapHeigt[1]}` }}
-                className={style.ButtonAddSave}
-                type="submit"
-              >
-                Save
-              </ButtonComp>
-            )}
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };

@@ -90,6 +90,8 @@ class FilmsController extends Controller
         if ($request->user()->can('add',$request->user())) {
             $films->genres()->detach();
             $films->delete();
+            Storage::disk('public')->delete($films->name_film);
+            Storage::disk('public')->delete($films->name_img_film);
             // $genre = Genre::find($request->get('id')); // Modren Chairs, Home Chairs
             return response()->json($films, 201);
         }

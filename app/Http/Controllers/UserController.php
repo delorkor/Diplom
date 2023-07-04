@@ -53,25 +53,48 @@ class UserController extends Controller
     public function createUser(Request $request)
     {
         $user = $request->user();
-        // $user = User::findorFail($request->route('id'));
+  
+      
+        if (Hash::check($request->get('password'),$user->password) && $user->id==$request->get('id') ){
         $user->update(
             [ 
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
+            // 'password' => Hash::make($request->get('password_now')),
 
             ]
+           
             );
+            if(strlen($request->get('password_now'))>=1){
+                $user->update(
+                    [ 
+                    'password' => Hash::make($request->get('password_now')),
+                    ]
+                   
+                    );
+                
+            }
         return response()->json(
             [
-                $user,
-                'message' => 'Обнавлено'
+               
+                'message' => 'верно'
+            ],
+            201
+        );
+    
+        }
+         return response()->json(
+            [
+                $user->id,
+               
+                $request->get('password_now'),
+              
             ],
             403
         );
     
+    
     }
-
     public function allUser(Request $request)
     {
         $user = User::all();
