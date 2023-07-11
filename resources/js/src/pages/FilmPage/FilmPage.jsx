@@ -39,7 +39,7 @@ export const FilmPage = () => {
                             src={
                                 oneFilm
                                     ? "http://diplom.loc/storage/" +
-                                      oneFilm.data.name_img_film
+                                      oneFilm.data[0].name_img_film
                                     : ""
                             }
                             alt=""
@@ -58,19 +58,25 @@ export const FilmPage = () => {
                 </div>
 
                 <div className={style.descriptionFilm}>
-                    <h2>{oneFilm && oneFilm.data.name}</h2>
+                    <h2>{oneFilm && oneFilm.data[0].name}</h2>
                     <div className={style.tableContent}>
                         <table>
                             <tbody>
                                 <tr>
                                     <td className={style.tableTd}>Released:</td>
                                     <td className={style.tableTd}>
-                                        {oneFilm && oneFilm.data.Year}
+                                        {oneFilm && oneFilm.data[0].Year}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td className={style.tableTd}>ganre:</td>
-                                    <td className={style.tableTd}>horor</td>
+                                    <td className={style.tableTd}>
+                                        {" "}
+                                        {oneFilm &&
+                                            oneFilm.data[0].genres.map((i) => {
+                                                return i.name;
+                                            })}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td className={style.tableTd}>category:</td>
@@ -79,7 +85,7 @@ export const FilmPage = () => {
                             </tbody>
                         </table>
                         <div className={style.descr}>
-                            {oneFilm && oneFilm.data.description}
+                            {oneFilm && oneFilm.data[0].description}
                         </div>
                         <div className={style.wideowrapper}>
                             <video
@@ -88,7 +94,7 @@ export const FilmPage = () => {
                                 src={
                                     oneFilm
                                         ? "http://diplom.loc/storage/" +
-                                          oneFilm.data.name_film
+                                          oneFilm.data[0].name_film
                                         : ""
                                 }
                             >

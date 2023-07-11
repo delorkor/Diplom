@@ -28,6 +28,7 @@ use App\Http\Controllers\CategoryController;
 Route::post('/regisration',[UserController::class, 'postUser'])->name('postUser');//Добавление пользователя
 Route::post('/login',[UserController::class, 'loginUser'])->name('loginUser');//авторизация
 Route::get('/Films',[FilmsController::class, 'allFilms'])->name('allFilms');//все фильм
+Route::post('/FilmsSearch',[FilmsController::class, 'SearchFilms'])->name('SearchFilms');// фильм Поиск
 Route::post('/Films/pages/{pages}',[FilmsController::class, 'PagesFilms'])->name('PagesFilms');//фильмы погинации
 Route::get('/Films/{id}',[FilmsController::class, 'Films'])->name('Films');//фильм
 Route::get('/GenreAll',[GenreController::class, 'allGenre'])->name('AllGenre');//фильм по жанрам

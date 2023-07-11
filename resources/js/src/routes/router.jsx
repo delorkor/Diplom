@@ -4,6 +4,7 @@ import { ModalSignIn } from "../pages/ModalSignIn/ModalSignIn";
 import { Header } from "../containers/Header/Header";
 import { Main } from "../pages/Main/Main";
 import { MainGenre } from "../pages/MainGenre/MainGenre";
+import { MainSearch } from "../pages/MainSearch/MainSearch";
 import { AddFilms } from "../pages/AddFilms/AddFilms";
 import { Navigation } from "../containers/Navigation/Navigation";
 import { FilmPage } from "../pages/FilmPage/FilmPage";
@@ -13,121 +14,137 @@ import { date } from "yup";
 import { UserPage } from "../pages/UserPage/UserPage";
 
 const router = createBrowserRouter([
-  {
-    path: pagesRoutes.MAIN,
-    element: (
-      <>
-        <Header />
+    {
+        path: pagesRoutes.MAIN,
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
 
-            <Main />
-          </div>
-        </div>
-      </>
-    ),
-  },
-  {
-    path: pagesRoutes.AUTH,
-    element: <ModalSignIn />,
-  },
+                        <Main />
+                    </div>
+                </div>
+            </>
+        ),
+    },
+    {
+        path: pagesRoutes.AUTH,
+        element: <ModalSignIn />,
+    },
 
-  {
-    path: pagesRoutes.MOVIE,
-    element: (
-      <>
-        <Header />
+    {
+        path: pagesRoutes.MOVIE,
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
-            <AddFilms />
-          </div>
-        </div>
-      </>
-    ),
-  },
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
+                        <AddFilms />
+                    </div>
+                </div>
+            </>
+        ),
+    },
 
-  {
-    path: pagesRoutes.MOVIE_PAGE + "/" + ":id",
+    {
+        path: pagesRoutes.MOVIE_PAGE + "/" + ":id",
 
-    element: (
-      <>
-        <Header />
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
 
-            <FilmPage />
-          </div>
+                        <FilmPage />
+                    </div>
 
-          <Slyder />
-        </div>
-      </>
-    ),
+                    <Slyder />
+                </div>
+            </>
+        ),
 
-    loader: ({ params }) => params.id,
-  },
+        loader: ({ params }) => params.id,
+    },
 
-  {
-    path: pagesRoutes.Genre + "/" + ":id",
+    {
+        path: pagesRoutes.Genre + "/" + ":id",
 
-    element: (
-      <>
-        <Header />
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
 
-            <MainGenre />
-          </div>
-        </div>
-      </>
-    ),
+                        <MainGenre />
+                    </div>
+                </div>
+            </>
+        ),
 
-    loader: ({ params }) => params.id,
-  },
-  {
-    path: pagesRoutes.Cotegory + "/" + ":idCotegory",
+        loader: ({ params }) => params.id,
+    },
+    {
+        path: pagesRoutes.Cotegory + "/" + ":idCotegory",
 
-    element: (
-      <>
-        <Header />
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
 
-            <MainGenre />
-          </div>
-        </div>
-      </>
-    ),
-    // location:
-    // loader: ({ params }) => params.idCotegory,
-  },
-  {
-    path: pagesRoutes.UserPage + "/" + ":id",
+                        <MainGenre />
+                    </div>
+                </div>
+            </>
+        ),
+        // location:
+        // loader: ({ params }) => params.idCotegory,
+    },
+    {
+        path: pagesRoutes.UserPage + "/" + ":id",
 
-    element: (
-      <>
-        <Header />
+        element: (
+            <>
+                <Header />
 
-        <div className={style.containers}>
-          <div className={style.mainWrapper}>
-            <Navigation />
-            <UserPage />
-          </div>
-        </div>
-      </>
-    ),
-    // location:
-    // loader: ({ params }) => params.idCotegory,
-  },
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
+                        <UserPage />
+                    </div>
+                </div>
+            </>
+        ),
+        // location:
+        // loader: ({ params }) => params.idCotegory,
+    },
+    {
+        path: pagesRoutes.SEARCH,
+
+        element: (
+            <>
+                <Header />
+
+                <div className={style.containers}>
+                    <div className={style.mainWrapper}>
+                        <Navigation />
+                        <MainSearch />
+                    </div>
+                </div>
+            </>
+        ),
+    },
 ]);
 
 export default router;

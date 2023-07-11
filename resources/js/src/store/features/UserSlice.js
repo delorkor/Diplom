@@ -2,8 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     id: "",
+    role: "",
     name: "",
     email: "",
+    // massage: "",
     access_token: "",
     password: "",
     password_now: "",
@@ -17,6 +19,10 @@ export const UserSlice = createSlice({
             state.id = action.payload.id;
             state.name = action.payload.name;
             state.email = action.payload.email;
+            state.role = action.payload.role;
+        },
+        stateMassage: (state, action) => {
+            state.massage = action.payload.massage;
         },
         stateEmail: (state, action) => {
             state.email = action.payload.email;
@@ -38,6 +44,7 @@ export const {
     stateName,
     statePasswor,
     statePasswordOld,
+    stateMassage,
 } = UserSlice.actions;
 // export const { stateUser } = UserSlice.actions;
 export default UserSlice.reducer;

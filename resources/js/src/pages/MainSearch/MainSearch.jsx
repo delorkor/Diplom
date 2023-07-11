@@ -1,4 +1,4 @@
-import styles from "./MainGenre.module.css";
+import styles from "./MainSearch.module.css";
 import { Navigation } from "../../containers/Navigation/Navigation";
 import { MovieBlock } from "../../containers/MovieBlock/MovieBlock";
 import { PagesFilms } from "../../reqests/PagesFilms";
@@ -7,38 +7,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../store/features/FilmsSlice";
 import { Link } from "../../components/Link/Link";
 import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
-import { GenreFilms } from "../../reqests/GenreFilms";
+
+import { Search } from "../../reqests/Search";
 import pagesRoutes from "../../routes/pagesRoutes";
-export const MainGenre = () => {
+export const MainSearch = () => {
     // const id = useLoaderData();
     const loader = useLocation();
     const { state } = loader;
     console.log(state);
-    const idCotegory = useLoaderData();
-    console.log(idCotegory);
-    // const UrlCotegory = `http://diplom.loc/api/CategoryFilms/${idCotegory}`;
+    // const idCotegory = useLoaderData();
+    // console.log(idCotegory);
 
-    const Url = `http://diplom.loc/api/${state}`;
-
-    // console.log(Url);
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
-
-    const FilmsGenre = async (Url) => {
-        const filmsGen = await GenreFilms(Url);
-
-        GenreFilmsAllFunction(filmsGen);
-
-        return filmsGen;
-    };
-
+    console.log(GenreFilmsAll);
     useEffect(() => {
-        FilmsGenre(Url);
+        SearchFilm(state);
     }, [loader]);
 
-    // useEffect(() => {
-    //   FilmsCategory(UrlCotegory);
-    // }, [idCotegory]);
-    console.log(GenreFilmsAll);
+    const SearchFilm = async (state) => {
+        const form = new FormData();
+
+        form.append("text", state);
+        const SearchF = await Search(form);
+        GenreFilmsAllFunction(SearchF);
+    };
 
     return (
         <div className={styles.Main}>

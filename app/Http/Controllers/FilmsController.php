@@ -42,7 +42,14 @@ class FilmsController extends Controller
     public function Films($id)
     {
         $films = Films::findorFail($id);
-        return response()->json($films, 201);
+        // $films = Films::findorFail($id)->with('genres');
+        // $films = Films::findorFail($id);
+        // foreach ( $films->genres as $value) {
+        //     return response()->json($value, 201);
+        // }
+     
+        return response()->json([$films,$films->genres], 201);
+        
      
     }
    
@@ -150,14 +157,18 @@ foreach ($sun as $key => $value) {
 }
 
 
-// public function CategoryFilms(Request $request)
-// {   
-//     $category = Films::all()->where('category_id',$request->route('id'))->paginate(10);
- 
 
-//  return response()->json($category); 
 
-// }
+ public function SearchFilms(Request $request){
+    $Name= $request->input('text');
+    $Search= Films::query()->where('name', 'like',"%{$Name}%")->orderBy('id','desc')->paginate(10);
+    foreach ($Search as $key => $value) {
+        $value->name_img_film=asset( Storage::url($value->name_img_film));
+        $Search[$key]=$value;
+    }
+ return response()->json($Search); 
+
+ }
 }
 
 
