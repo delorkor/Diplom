@@ -29,7 +29,7 @@ export const Header = () => {
         const deleteTocen = await RemuveToken();
         delete localStorage.user;
         navigate(pagesRoutes.MAIN);
-        return deleteTocen;
+        // return deleteTocen;
     };
     const SearchFilm = (e) => {
         navigate(pagesRoutes.SEARCH, { state: e.target.value });
@@ -46,7 +46,7 @@ export const Header = () => {
             <div className={styles.containers}>
                 <div className={styles.header_wrapper}>
                     <div className={styles.logo}>
-                        <NavLink to="/">
+                        <NavLink to={pagesRoutes.MAIN}>
                             <svg
                                 width="158"
                                 height="40"

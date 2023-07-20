@@ -6,9 +6,11 @@ import { useParams, useLoaderData } from "react-router-dom";
 import { getOnlyFilms } from "../../reqests/getOnlyFilms";
 import { ButtonComp } from "../../components/ButtonComp/ButtonComp";
 import { DeleteFilms } from "../../reqests/DeleteFilms";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 export const FilmPage = () => {
     const id = useLoaderData();
     const [oneFilm, oneFilmFunction] = useState(false);
+    const user = useSelector((state) => state.user);
     const getFilms = async (id) => {
         console.log(id);
         const films = await getOnlyFilms(id);
@@ -17,8 +19,8 @@ export const FilmPage = () => {
         console.log(films);
         return films;
     };
-    const IdUser = oneFilm.data;
-    console.log(id);
+    // const IdUser = oneFilm.data;
+    console.log(oneFilm);
     const DelFilm = async (e) => {
         console.log(e.target.id);
         const Delete = await DeleteFilms(e.target.id);
@@ -47,13 +49,17 @@ export const FilmPage = () => {
                     </div>
 
                     <div className={style.blockLink}>
-                        <ButtonComp
-                            id={id}
-                            className={style.deleteFilms}
-                            onClick={DelFilm}
-                        >
-                            Удалить
-                        </ButtonComp>
+                        {user.role === 1 ? (
+                            <ButtonComp
+                                id={id}
+                                className={style.deleteFilms}
+                                onClick={DelFilm}
+                            >
+                                Удалить
+                            </ButtonComp>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
 
@@ -63,24 +69,29 @@ export const FilmPage = () => {
                         <table>
                             <tbody>
                                 <tr>
-                                    <td className={style.tableTd}>Released:</td>
+                                    <td className={style.tableTd}>Релиз:</td>
                                     <td className={style.tableTd}>
                                         {oneFilm && oneFilm.data[0].Year}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={style.tableTd}>ganre:</td>
+                                    <td className={style.tableTd}>Жанр:</td>
                                     <td className={style.tableTd}>
                                         {" "}
                                         {oneFilm &&
                                             oneFilm.data[0].genres.map((i) => {
-                                                return i.name;
+                                                return i.name + " ";
                                             })}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td className={style.tableTd}>category:</td>
-                                    <td className={style.tableTd}>films</td>
+                                    <td className={style.tableTd}>
+                                        Категории:
+                                    </td>
+                                    <td className={style.tableTd}>
+                                        {oneFilm &&
+                                            oneFilm.data[0].category.text}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

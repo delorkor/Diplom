@@ -1,4 +1,4 @@
-import styles from "./Main.module.css";
+import styles from "./MainCategory.module.css";
 import { Navigation } from "../../containers/Navigation/Navigation";
 import { MovieBlock } from "../../containers/MovieBlock/MovieBlock";
 import { PagesFilms } from "../../reqests/PagesFilms";
@@ -6,65 +6,58 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilms } from "../../store/features/FilmsSlice";
 import { Link } from "../../components/Link/Link";
-import { useLoaderData, useNavigate } from "react-router-dom";
-import { GenreFilms } from "../../reqests/GenreFilms";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
+import { CategoryFilms } from "../../reqests/CategoryFilms";
 import pagesRoutes from "../../routes/pagesRoutes";
-export const Main = () => {
-    const id = useLoaderData();
+export const MainCategory = () => {
+    const idCotegory = useLoaderData();
+    const loader = useLocation();
+    // const { state } = loader;
+    console.log(idCotegory);
+    // const idCotegory = useLoaderData();
+
+    const Url = `http://diplom.loc/api/CategoryFilms/${idCotegory}`;
+
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
-    const navigate = useNavigate();
-    // const [pageNum, pageNumFunction] = useState("");
-    // console.log(films);
-    let films = useSelector((state) => state.films.data);
-    // console.log(films.data);
-    const dispatch = useDispatch();
+
+    const FilmsGenre = async (Url) => {
+        console.log(Url);
+        const filmsGen = await CategoryFilms(Url);
+        console.log(filmsGen);
+        GenreFilmsAllFunction(filmsGen);
+
+        return filmsGen;
+    };
     console.log(GenreFilmsAll);
-    const dataFilms = async (page) => {
-        const films = await PagesFilms(page);
-        console.log(films);
-        GenreFilmsAllFunction(films);
-        dispatch(setFilms(films));
-    };
-    const FilmsGenre = async (id) => {
-        if (id !== undefined) {
-            const filmsGen = await GenreFilms(id);
-            GenreFilmsAllFunction(filmsGen);
-            // console.log(GenreFilmsAll);
-            return filmsGen;
-        }
-    };
-
     useEffect(() => {
-        FilmsGenre(id);
-
-        dataFilms();
+        FilmsGenre(Url);
     }, []);
+    useEffect(() => {
+        FilmsGenre(Url);
+    }, [loader]);
+
+    // useEffect(() => {
+    //   FilmsCategory(UrlCotegory);
+    // }, [idCotegory]);
+    console.log(GenreFilmsAll);
 
     return (
         <div className={styles.Main}>
             <div className={styles.content}>
-                {films &&
-                    films.data.map((e, num) => {
-                        // console.log(e);
-
-                        return (
-                            <MovieBlock
-                                key={e.id}
-                                data={e}
-                                // gen={films.data[num].genres[0].name}
-                            />
-                        );
+                {GenreFilmsAll &&
+                    GenreFilmsAll.data.map((e) => {
+                        return <MovieBlock key={e.id} data={e} />;
                     })}
             </div>
             <div className={styles.pagenation}>
-                {films &&
-                    films.links.map((e, index) => {
+                {GenreFilmsAll &&
+                    GenreFilmsAll.links.map((e, index) => {
                         if (index == 0) {
                             return (
                                 <Link
                                     key={index}
                                     onClick={() => {
-                                        dataFilms(e.url);
+                                        FilmsGenre(e.url);
                                     }}
                                     className={styles.PagenationLink}
                                 >
@@ -106,12 +99,12 @@ export const Main = () => {
                                     </svg>
                                 </Link>
                             );
-                        } else if (index == films.links.length - 1) {
+                        } else if (index == GenreFilmsAll.links.length - 1) {
                             return (
                                 <Link
                                     key={index}
                                     onClick={() => {
-                                        dataFilms(e.url);
+                                        FilmsGenre(e.url);
                                     }}
                                     className={styles.PagenationLink}
                                 >
@@ -154,14 +147,14 @@ export const Main = () => {
                                 </Link>
                             );
                         } else if (
-                            index > films.current_page - 3 &&
-                            index < films.current_page + 3
+                            index > GenreFilmsAll.current_page - 3 &&
+                            index < GenreFilmsAll.current_page + 3
                         ) {
                             return (
                                 <Link
                                     key={index}
                                     onClick={() => {
-                                        dataFilms(e.url);
+                                        FilmsGenre(e.url);
                                     }}
                                     className={
                                         e.active
@@ -172,7 +165,7 @@ export const Main = () => {
                                     {e.label}
                                 </Link>
                             );
-                        } else if (index == films.links.length - 2) {
+                        } else if (index == GenreFilmsAll.links.length - 2) {
                             return (
                                 <div key={index}>
                                     <span className={styles.PagenationLink}>
@@ -181,7 +174,7 @@ export const Main = () => {
                                     <Link
                                         key={index}
                                         onClick={() => {
-                                            dataFilms(e.url);
+                                            FilmsGenre(e.url);
                                         }}
                                         className={
                                             e.active
@@ -199,7 +192,7 @@ export const Main = () => {
                                     <Link
                                         key={index}
                                         onClick={() => {
-                                            dataFilms(e.url);
+                                            FilmsGenre(e.url);
                                         }}
                                         className={
                                             e.active
@@ -215,12 +208,12 @@ export const Main = () => {
                                     </span>
                                 </div>
                             );
-                        } else if (index < films.current_page - 4) {
+                        } else if (index < GenreFilmsAll.current_page - 4) {
                             return (
                                 <Link
                                     key={index}
                                     onClick={() => {
-                                        dataFilms(e.url);
+                                        FilmsGenre(e.url);
                                     }}
                                     className={
                                         e.active

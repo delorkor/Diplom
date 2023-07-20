@@ -16,24 +16,35 @@ class CategoryController extends Controller
         $categr->name_img_film=asset( Storage::url($categr->name_img_film));
         $category[$key]=$categr;
     }
- return response()->json($category); 
+    
+    foreach ($category as $value) {
+        $categoryG[]=$value->genres;
+    }
+    return response()->json([$category,$categoryG], 201);
+//  return response()->json($category); 
 
 }
     public function CategoryAll()
     {
-        $Comments = Category::all();
-        return response()->json($Comments, 201);
+        $Category = Category::all();
+        return response()->json($Category, 201);
+     
+    }
+    public function CategoryOne($id)
+    {
+        $Category = Category::findorFail($id);
+        return response()->json($Category, 201);
      
     }
    
     public function addCategoryFilms(Request $request)
     {
       
-        $Comments = Category::create([
+        $Category = Category::create([
             'text'=> $request->get('text'),
         ] );
         
-        return response()->json($Comments, 201);
+        return response()->json($Category, 201);
      
     }
 

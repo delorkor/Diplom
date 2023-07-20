@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Genre;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,6 +23,9 @@ class Films extends Model
 
     public function genres(){
         return $this->belongsToMany(Genre::class,'films_genres','films_id','genre_id');
+    }
+    public function category(){
+        return $this->belongsTo(Category::class,'category_id');
     }
     
 }

@@ -4,6 +4,7 @@ import { ModalSignIn } from "../pages/ModalSignIn/ModalSignIn";
 import { Header } from "../containers/Header/Header";
 import { Main } from "../pages/Main/Main";
 import { MainGenre } from "../pages/MainGenre/MainGenre";
+import { MainCategory } from "../pages/MainCategory/MainCategory";
 import { MainSearch } from "../pages/MainSearch/MainSearch";
 import { AddFilms } from "../pages/AddFilms/AddFilms";
 import { Navigation } from "../containers/Navigation/Navigation";
@@ -93,7 +94,7 @@ const router = createBrowserRouter([
         loader: ({ params }) => params.id,
     },
     {
-        path: pagesRoutes.Cotegory + "/" + ":idCotegory",
+        path: pagesRoutes.Cotegory + "/:idCotegory",
 
         element: (
             <>
@@ -103,13 +104,13 @@ const router = createBrowserRouter([
                     <div className={style.mainWrapper}>
                         <Navigation />
 
-                        <MainGenre />
+                        <MainCategory />
                     </div>
                 </div>
             </>
         ),
         // location:
-        // loader: ({ params }) => params.idCotegory,
+        loader: ({ params }) => params.idCotegory,
     },
     {
         path: pagesRoutes.UserPage + "/" + ":id",

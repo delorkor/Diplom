@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { postUsers } from "../../reqests/postUsers";
 import { AuthUser } from "../../reqests/AuthUser";
 import { useDispatch, useSelector } from "react-redux";
-import { setFirstId, stateMassage } from "../../store/features/UserSlice";
+import { setFirstId, setAuth } from "../../store/features/UserSlice";
 import { useNavigate } from "react-router-dom";
 import pagesRoutes from "../../routes/pagesRoutes";
 export const ModalSignIn = () => {
@@ -17,27 +17,49 @@ export const ModalSignIn = () => {
     const dispatch = useDispatch();
     const name = useSelector((state) => state.user.name);
     const [modalActivSignUp, modalActivSignUpFunction] = useState(false);
-    console.log(name);
+    const [modalEmail, modalEmailFunction] = useState("");
+    const [modalpasswoed, modalpasswoedFunction] = useState("");
+    const [modalError, modalErrorFunction] = useState(false);
+
+    console.log(modalError);
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm({ resolver: yupResolver(schema) });
+
     // { resolver: yupResolver(schema) }
     const onSubmitSihnIn = async (data) => {
         const Users = await postUsers(data);
     };
-    const UserAuth = async (data) => {
-        const UsersAuth = await AuthUser(data);
-        console.log(UsersAuth);
+    // const UserAuth = async (data) => {
+    //     const UsersAuth = await AuthUser(data);
+    //     console.log(UsersAuth);
+    //     if (UsersAuth.user) {
+    //         dispatch(setFirstId(UsersAuth.user));
+    //         localStorage.setItem("user", JSON.stringify(UsersAuth));
+    //         console.log(UsersAuth);
+    //         navigate(pagesRoutes.MAIN);
+    //     }
+    //     console.log(UsersAuth);
+    // };
+    const dataAuth = {
+        email: modalEmail,
+        password: modalpasswoed,
+    };
+    const UserAuth = async () => {
+        const UsersAuth = await AuthUser(dataAuth);
+
         if (UsersAuth.user) {
             dispatch(setFirstId(UsersAuth.user));
             localStorage.setItem("user", JSON.stringify(UsersAuth));
             console.log(UsersAuth);
             navigate(pagesRoutes.MAIN);
         }
+        modalErrorFunction(UsersAuth);
         console.log(UsersAuth);
     };
+
     const OpenSignUp = (e) => {
         modalActivSignUpFunction(!modalActivSignUp);
     };
@@ -82,42 +104,53 @@ export const ModalSignIn = () => {
             </div>
             {!modalActivSignUp ? (
                 <div className={style.window}>
-                    <form onSubmit={handleSubmit(UserAuth)}>
-                        <div className={style.HeadingModal}>Sign In</div>
-                        <div className={style.textEmail}>
-                            <span className={style.txtLable}>Email</span>
-                            <Input
-                                type="text"
-                                className={style.ImputForm}
-                                {...register("email")}
-                                placeholder="Your email"
-                                onChange={() => {}}
-                            ></Input>
-                        </div>
-                        <div className={style.textPasword}>
-                            <span className={style.txtLable}>Password</span>
-                            <Input
-                                type="pasword"
-                                className={style.ImputForm}
-                                {...register("password")}
-                                placeholder="Your password"
-                                onChange={() => {}}
-                            ></Input>
-                            <span className={style.txtLablePas}>
-                                Forgot password?
+                    {/* <form onSubmit={handleSubmit(UserAuth)}> */}
+                    <div className={style.HeadingModal}>Sign In</div>
+                    <div className={style.textEmail}>
+                        <span className={style.txtLable}>Почта</span>
+                        <Input
+                            type="text"
+                            className={style.ImputForm}
+                            // {...register("email")}
+                            placeholder="Почта"
+                            onChange={(e) => {
+                                modalEmailFunction(e.target.value);
+                            }}
+                            value={modalEmail}
+                        ></Input>
+                        {modalError && (
+                            <span className={style.txtLableError}>
+                                {modalError.message}
                             </span>
-                        </div>
-                        <ButtonComp className={style.buttinAuth}>
-                            Sign in
-                        </ButtonComp>
-                    </form>
+                        )}
+                    </div>
+                    <div className={style.textPasword}>
+                        <span className={style.txtLable}>Пароль</span>
+                        <Input
+                            type="password"
+                            className={style.ImputForm}
+                            // {...register("password")}
+                            placeholder="Пароль"
+                            onChange={(e) => {
+                                modalpasswoedFunction(e.target.value);
+                            }}
+                            value={modalpasswoed}
+                        ></Input>
+                        {/* <span className={style.txtLablePas}>
+                            Forgot password?
+                        </span> */}
+                    </div>
+                    <ButtonComp onClick={UserAuth} className={style.buttinAuth}>
+                        Вход
+                    </ButtonComp>
+                    {/* </form> */}
                     <div className={style.headerModal}>
-                        Don’t have an account?
+                        У вас нет учетной записи?
                         <Link
                             className={style.headerModalLink}
                             onClick={OpenSignUp}
                         >
-                            Sign Up
+                            Регистрация
                         </Link>
                     </div>
                 </div>
@@ -125,65 +158,67 @@ export const ModalSignIn = () => {
                 ///////////////////////////////////////////////
                 <div className={style.windowRegister}>
                     <form onSubmit={handleSubmit(onSubmitSihnIn)}>
-                        <div className={style.HeadingModal}>Sign Up</div>
+                        <div className={style.HeadingModal}>Регистрация</div>
                         <div className={style.textEmail}>
-                            <span className={style.txtLable}>name</span>
+                            <span className={style.txtLable}>Имя</span>
                             <Input
                                 type="text"
                                 error={errors.name?.message}
                                 className={style.ImputForm}
                                 {...register("name")}
-                                placeholder="Your name"
+                                placeholder="Имя"
                                 onChange={() => {}}
                             ></Input>
                         </div>
                         <div className={style.textEmail}>
-                            <span className={style.txtLable}>email</span>
+                            <span className={style.txtLable}>Почта</span>
                             <Input
                                 type="text"
                                 className={style.ImputForm}
                                 error={errors.Email?.message}
                                 {...register("email")}
-                                placeholder="Your email"
+                                placeholder="Почта"
                                 onChange={() => {}}
                             ></Input>
                         </div>
                         <div className={style.textPasword}>
                             {" "}
-                            <span className={style.txtLable}>Password</span>
+                            <span className={style.txtLable}>Пароль</span>
                             <Input
-                                type="pasword"
+                                type="password"
                                 error={errors.Password?.message}
                                 className={style.ImputForm}
                                 {...register("password")}
-                                placeholder="Your password"
+                                placeholder="Введите пароль"
                                 onChange={() => {}}
                             ></Input>
                         </div>
                         <div className={style.textPasword}>
-                            {" "}
                             <span className={style.txtLable}>
-                                Confirm password
+                                Подтвердите пароль
+                            </span>
+                            <span className={style.txtLable}>
+                                {/* Confirm password */}
                             </span>
                             <Input
-                                type="pasword"
+                                type="password"
                                 error={errors.Confirm_password?.message}
                                 className={style.ImputForm}
                                 {...register("Confirm_password")}
-                                placeholder="Confirm  password"
+                                placeholder="Подтвердите пароль"
                                 onChange={() => {}}
                             ></Input>
                         </div>
                         <ButtonComp className={style.buttinAuth}>
-                            Sign up
+                            Регистрация
                         </ButtonComp>
                         <div className={style.headerModal}>
-                            Already have an account?{" "}
+                            У вас уже есть учетная запись?{" "}
                             <Link
                                 className={style.headerModalLink}
                                 onClick={OpenSignUp}
                             >
-                                Sign In
+                                Войти в систему
                             </Link>
                         </div>
                     </form>

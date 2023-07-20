@@ -19,7 +19,7 @@ export const Input = forwardRef(
             <>
                 <input
                     // onChange={onChange}
-                    data-date-format="YYYY-MMMM-DD"
+                    // data-date-format="YYYY-MMMM-DD"
                     className={className}
                     placeholder={placeholder}
                     value={value}

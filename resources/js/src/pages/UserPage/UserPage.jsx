@@ -26,7 +26,7 @@ export const UserPage = () => {
     const UserData = useSelector((state) => state.user);
     const [Passworn_now_two, Passworn_now_twoFunction] = useState("");
     console.log(UserData);
-    console.log(Passworn_now_two);
+    // console.log(Passworn_now_two);
     const unwrap = () => {
         unwrapHeigtFunction([700, "block"]);
     };
@@ -67,7 +67,7 @@ export const UserPage = () => {
             }
         } else {
             const Users = await UpdateUser(UserData);
-            console.log(UserData);
+            console.log(Users);
         }
     };
 

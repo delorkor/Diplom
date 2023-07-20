@@ -8,6 +8,7 @@ export const ButtonComp = forwardRef((props, ref) => {
             type={props.type}
             className={props.className}
             ref={ref}
+           
         >
             {props.children}
         </button>

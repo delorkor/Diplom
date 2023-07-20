@@ -5,5 +5,5 @@ export const Search = async (data) => {
         data
     );
 
-    return Searchfilm.data;
+    return Searchfilm.data[0];
 };

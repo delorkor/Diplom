@@ -34,6 +34,7 @@ Route::get('/Films/{id}',[FilmsController::class, 'Films'])->name('Films');//ф�
 Route::get('/GenreAll',[GenreController::class, 'allGenre'])->name('AllGenre');//фильм по жанрам
 Route::get('/GenreFilms/{id}',[FilmsController::class, 'GenreFilms'])->name('GenreFilms');//фильм по жанрам
 Route::get('/CategoryFilms',[CategoryController::class, 'CategoryAll'])->name('Category');//все котегории
+Route::get('/Category/{id}',[CategoryController::class, 'CategoryOne'])->name('CategoryOne'); //категория
 Route::get('/CategoryFilms/{id}',[CategoryController::class, 'CategoryFilms'])->name('CategoryFilms');//фильм по категориям
 // Route::post('/add/Films',[FilmsController::class, 'addFilms'])->name('addFilms');//***************** */
 Route::middleware(['auth:sanctum'])->group(function () {

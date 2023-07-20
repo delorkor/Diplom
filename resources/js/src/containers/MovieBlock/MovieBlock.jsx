@@ -2,8 +2,26 @@ import style from "./MovieBlock.module.css";
 import img from "../../img/1.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
 import pagesRoutes from "../../routes/pagesRoutes";
-
+import { getOneCotegory } from "../../reqests/getOneCotegory";
+import { useState, useEffect } from "react";
 export const MovieBlock = ({ data }) => {
+    const [categoryID, categoryIDFunction] = useState(false);
+    // console.log(data.id);
+    const Cotegory = async (id) => {
+        const CotegoryId = await getOneCotegory(id);
+        // return CotegoryId;
+        categoryIDFunction(CotegoryId);
+    };
+    // console.log(data);
+    // console.log(gen);
+    // Cotegory(data.category_id);
+    // useEffect(() => {
+    //     if (data) {
+    //         Cotegory(data.category_id);
+    //     }
+    // }, []);
+
+    // console.log(categoryID);
     return (
         <div className={style.MovieBlock}>
             <div className={style.BoxImg}>
@@ -21,7 +39,11 @@ export const MovieBlock = ({ data }) => {
                 </NavLink>
             </div>
             <div className={style.name}>{data.name}</div>
-            <div className={style.cotegory}>movie</div>
+            <div className={style.cotegory}>
+                {data.genres.map((e) => {
+                    return e.name + " ";
+                })}
+            </div>
         </div>
     );
 };

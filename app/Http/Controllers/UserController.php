@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use UserMailForm;
 use App\Models\User;
+use App\Mail\userRegistr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -18,6 +21,8 @@ class UserController extends Controller
             'role' => 0,
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
+        $dataUser=['name' => $request->get('name'), 'email' => $request->get('email'),'password' =>$request->get('password')];
+        Mail::to($request->get('email'))->send(new UserMailForm($dataUser));
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
@@ -27,6 +32,7 @@ class UserController extends Controller
 
     public function loginUser(Request $request)
     {
+        
         [
             'email' => $request->get('email'),
             'password' => $request->get('password')
@@ -42,6 +48,8 @@ class UserController extends Controller
         $user = User::where('email', $request->get('email'))->firstOrFail();
         // Auth::login($user);
         $token = $user->createToken('auth_token')->plainTextToken;
+        // $dataUser=['name'=>$user->name, 'email' => $request->get('email'),'password' =>$request->get('password')];
+        // Mail::to($request->get('email'))->send(new UserRegistr($dataUser));
   return response()->json([
         'access_token' => $token,
         'token_type' => 'Bearer',

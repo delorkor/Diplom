@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Films;
 use App\Models\Genre;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,21 +14,25 @@ class FilmsController extends Controller
 
     public function allFilms(Request $request)
     {
-        $films = Films::query()->orderBy('id','desc')->paginate(10);
-        //   foreach ($films as $key => $film) {
-        //     $film->name_img_film= Storage::url($film->name_img_film);
-        //     $films[$key]=$film;
-        // }
+        // $films = Films::all();
+        $Category = Category::all();
+     
+        $films = Films::query()
+        
+        ->orderBy('id','desc')
+        ->paginate(10);
+       
         foreach ($films as $key => $film) {
             $film->name_img_film=asset( Storage::url($film->name_img_film));
             $films[$key]=$film;
         }
-// dd( $films);
-        // $films=$films->map(function ($film) {
-        //     $film->name_img_film=Storage::url($film->name_img_film);
-        //     return  $film;
-        // });
-        return response()->json($films, 201);
+
+        foreach ($films as $film) {
+            $filmsG[]=$film->genres;
+        }
+
+    
+        return response()->json([$films,$filmsG], 201);
      
     }
     public function PagesFilms(Request $request)
@@ -42,13 +47,9 @@ class FilmsController extends Controller
     public function Films($id)
     {
         $films = Films::findorFail($id);
-        // $films = Films::findorFail($id)->with('genres');
-        // $films = Films::findorFail($id);
-        // foreach ( $films->genres as $value) {
-        //     return response()->json($value, 201);
-        // }
+      
      
-        return response()->json([$films,$films->genres], 201);
+        return response()->json([$films,$films->genres,$films->category], 201);
         
      
     }
@@ -152,7 +153,12 @@ foreach ($sun as $key => $value) {
     $value->name_img_film=asset( Storage::url($value->name_img_film));
     $sun[$key]=$value;
 }
- return response()->json($sun); 
+
+foreach ($sun as $value) {
+    $sunG[]=$value->genres;
+}
+return response()->json([$sun,$sunG], 201);
+//  return response()->json($sun); 
 
 }
 
@@ -166,9 +172,15 @@ foreach ($sun as $key => $value) {
         $value->name_img_film=asset( Storage::url($value->name_img_film));
         $Search[$key]=$value;
     }
- return response()->json($Search); 
 
+    foreach ($Search as $value) {
+        $SearchG[]=$value->genres;
+    }
+
+ return response()->json([$Search, $SearchG],201); 
+ 
  }
+ 
 }
 
 

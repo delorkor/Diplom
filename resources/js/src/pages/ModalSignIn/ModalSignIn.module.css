@@ -79,6 +79,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
+    color: #fff;
 }
 .txtLable {
     font-family: "Exo 2";
@@ -86,6 +87,14 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
+    margin-bottom: 8px;
+}
+.txtLableError {
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: red;
     margin-bottom: 8px;
 }
 
