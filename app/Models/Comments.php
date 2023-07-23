@@ -14,4 +14,7 @@ class Comments extends Model
         'films_id',
         'user_id',
     ];
+    public function CommentFilm(){
+        return $this->belongsTo(Category::class,'films_id');
+    }
 }

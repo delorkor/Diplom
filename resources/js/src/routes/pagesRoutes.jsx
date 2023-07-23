@@ -7,6 +7,7 @@ const pagesRoutes = {
     MOVIE: "/add/movie",
     MOVIE_PAGE: "/movie/page",
     SEARCH: "/search",
+    WEATHER: "/weather",
 };
 
 export default pagesRoutes;

@@ -172,15 +172,27 @@ return response()->json([$sun,$sunG], 201);
         $value->name_img_film=asset( Storage::url($value->name_img_film));
         $Search[$key]=$value;
     }
-
-    foreach ($Search as $value) {
-        $SearchG[]=$value->genres;
+    $SearchG=[];
+    if ($Search) {
+        foreach ($Search as $value) {
+          
+           
+            $SearchG[]=$value->genres;
+       
+        }
+        
+            return response()->json([$Search, $SearchG],201);
+     
+            
+    
+       
     }
-
- return response()->json([$Search, $SearchG],201); 
+    // dd($Search);
+    // return response()->json([],404);
+  
  
- }
  
 }
 
 
+}

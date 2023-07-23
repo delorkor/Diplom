@@ -8,6 +8,7 @@ import { ButtonComp } from "../../components/ButtonComp/ButtonComp";
 import { getGenre } from "../../reqests/getGenre";
 import { getCotegory } from "../../reqests/getCotegory";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { WeatherReqest } from "../../reqests/WeatherReqest ";
 export const Navigation = () => {
     const [getGanre, getGanreFunction] = useState(false);
     const [getCoteg, getCotegoryFunction] = useState(false);
@@ -31,10 +32,11 @@ export const Navigation = () => {
         getCotegoryFunction(CotegoryAll);
         return CotegoryAll;
     };
-
+    // console.log(WeatherReqest());
     useEffect(() => {
         Genre();
         Cotegory();
+
         // if (localStorage.getItem("user")) {
         //     const user = JSON.parse(localStorage.getItem("user")).user;
         //     getUserAdminFunction(user);
@@ -49,6 +51,9 @@ export const Navigation = () => {
 
     return (
         <nav className={style.Navigation}>
+            <NavLink to={pagesRoutes.WEATHER} className={style.Linknavigation}>
+                Погода
+            </NavLink>
             <div className={style.NameList}>Жанры</div>
             <ul className={style.ListNavi}>
                 {getGanre &&

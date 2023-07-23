@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Genre;
 use App\Models\Category;
+use App\Models\Comments;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,6 +27,9 @@ class Films extends Model
     }
     public function category(){
         return $this->belongsTo(Category::class,'category_id');
+    }
+    public function comments(){
+        return $this->hasMany(Comments::class,'films_id','id');
     }
     
 }

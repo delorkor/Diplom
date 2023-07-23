@@ -25,9 +25,9 @@ export const Main = () => {
         GenreFilmsAllFunction(films);
         dispatch(setFilms(films));
     };
-    const FilmsGenre = async (id) => {
+    const FilmsGenre = (id) => {
         if (id !== undefined) {
-            const filmsGen = await GenreFilms(id);
+            const filmsGen = GenreFilms(id);
             GenreFilmsAllFunction(filmsGen);
             // console.log(GenreFilmsAll);
             return filmsGen;

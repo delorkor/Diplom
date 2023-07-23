@@ -82,3 +82,80 @@
 .deleteFilms:hover {
     background-color: #7b61ff;
 }
+.Textarea {
+    background-color: #323537;
+    color: #fff;
+    width: 100%;
+    font-size: 16px;
+    min-height: 100px;
+    resize: none;
+    overflow: hidden;
+    border: none;
+}
+.Coments {
+    margin-top: 200px;
+    margin-bottom: 50px;
+}
+.CommentWrapper {
+    width: 100%;
+}
+.ComentsUser {
+    min-height: 100px;
+    background-color: #323537;
+    margin-bottom: 50px;
+    color: #fff;
+    font-size: 20px;
+}
+.pagenation {
+    text-align: center;
+    color: #80858b;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    vertical-align: middle;
+}
+.PagenationLink {
+    margin-right: 7px;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #80858b;
+    text-decoration: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+.PagenationLink:hover {
+    color: #7b61ff;
+}
+
+.PagenationLinkLast {
+    margin-right: 7px;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #80858b;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.PagenationLinkActiv {
+    margin-right: 7px;
+    font-family: "Exo 2";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #7b61ff;
+    text-decoration: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+.arrow :hover {
+    fill: #7b61ff;
+}

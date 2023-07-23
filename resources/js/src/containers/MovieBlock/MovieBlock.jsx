@@ -44,6 +44,10 @@ export const MovieBlock = ({ data }) => {
                     return e.name + " ";
                 })}
             </div>
+            <div>
+                {" "}
+              
+            </div>
         </div>
     );
 };

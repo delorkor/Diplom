@@ -7,13 +7,38 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+
+    public function allComments($id)
+    {
+        // // $films = Films::all();
+        // $Comments = Comments::all();
+     
+        $Comments = Comments::query()
+        ->where('films_id',$id)
+        ->orderBy('id','desc')
+        ->paginate(10);
+       
+        // foreach ($films as $key => $film) {
+        //     $film->name_img_film=asset( Storage::url($film->name_img_film));
+        //     $films[$key]=$film;
+        // }
+
+        foreach ($Comments as $value) {
+            $CommentsG[]=$value->CommentFilm;
+        }
+
+    
+        return response()->json([$Comments,$CommentsG], 201);
+     
+    }
     public function addCommentsFilms(Request $request)
     {
       
         $Comments = Comments::create([
            
             'text'=> $request->get('text'),
-            'films_id'=> $request->route('id'),
+            'films_id'=> $request->get('id'),
             'user_id'=> $request->user()->id
 
         ] );

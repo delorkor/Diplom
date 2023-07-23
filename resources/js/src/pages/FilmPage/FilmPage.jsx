@@ -7,29 +7,52 @@ import { getOnlyFilms } from "../../reqests/getOnlyFilms";
 import { ButtonComp } from "../../components/ButtonComp/ButtonComp";
 import { DeleteFilms } from "../../reqests/DeleteFilms";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { Textarea } from "../../components/Textarea/Textarea";
+import { AddComents } from "../../reqests/AddComents";
+import { CommentFilms } from "../../reqests/CommentFilms";
+import { Link } from "../../components/Link/Link";
 export const FilmPage = () => {
     const id = useLoaderData();
     const [oneFilm, oneFilmFunction] = useState(false);
+    const [getCom, getComFilmFunction] = useState(false);
+    const [Comments, CommentsFunction] = useState("");
     const user = useSelector((state) => state.user);
+    const uri = `http://diplom.loc/api/Comments/film/${id}`;
     const getFilms = async (id) => {
         console.log(id);
         const films = await getOnlyFilms(id);
-        // const films = await PagesFilms(page);
+
         oneFilmFunction(films);
-        console.log(films);
+
         return films;
     };
-    // const IdUser = oneFilm.data;
-    console.log(oneFilm);
+
+    const getComments = async (uri) => {
+        console.log(uri);
+        const comment = await CommentFilms(uri);
+        getComFilmFunction(comment);
+        console.log(getCom);
+        return comment;
+    };
+    console.log(getCom);
     const DelFilm = async (e) => {
         console.log(e.target.id);
         const Delete = await DeleteFilms(e.target.id);
-
         return Delete;
     };
     useEffect(() => {
         getFilms(id);
+        getComments(uri);
     }, []);
+    console.log(getCom);
+
+    const CommentsAdd = async () => {
+        const form = new FormData();
+        form.append("text", Comments);
+        form.append("id", id);
+        const fileDown = AddComents(form);
+        console.log(fileDown);
+    };
 
     return (
         <div className={style.FilmPage}>
@@ -114,6 +137,212 @@ export const FilmPage = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={style.Coments}>
+                {" "}
+                <Textarea
+                    onChange={(e) => {
+                        CommentsFunction(e.target.value);
+                    }}
+                    type="text"
+                    // {...register("description")}
+                    // error={errors.description?.message}
+                    className={style.Textarea}
+                    value={Comments}
+                ></Textarea>
+                <button onClick={CommentsAdd}>Отправить</button>
+            </div>
+            <div className={style.CommentWrapper}>
+                {getCom &&
+                    getCom.data.map((i) => {
+                        // console.log(i);
+                        return (
+                            <div key={i.id} className={style.ComentsUser}>
+                                {i.text}
+                            </div>
+                        );
+                    })}
+            </div>
+            <div className={style.pagenation}>
+                {getCom &&
+                    getCom.links.map((e, index) => {
+                        {
+                            console.log(e);
+                        }
+                        if (index == 0) {
+                            return (
+                                <Link
+                                    key={index}
+                                    onClick={() => {
+                                        getComments(e.url);
+                                    }}
+                                    className={style.PagenationLink}
+                                >
+                                    <svg
+                                        className={style.arrow}
+                                        fill="#80858b"
+                                        width="24px"
+                                        height="24px"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <g
+                                            id="SVGRepo_bgCarrier"
+                                            strokeWidth="0"
+                                        />
+
+                                        <g
+                                            id="SVGRepo_tracerCarrier"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+
+                                        <g id="SVGRepo_iconCarrier">
+                                            {" "}
+                                            <g data-name="Layer 2">
+                                                {" "}
+                                                <g data-name="arrow-ios-back">
+                                                    {" "}
+                                                    <rect
+                                                        width="24"
+                                                        height="24"
+                                                        transform="rotate(90 12 12)"
+                                                        opacity="0"
+                                                    />{" "}
+                                                    <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />{" "}
+                                                </g>{" "}
+                                            </g>{" "}
+                                        </g>
+                                    </svg>
+                                </Link>
+                            );
+                        } else if (index == getCom.links.length - 1) {
+                            return (
+                                <Link
+                                    key={index}
+                                    onClick={() => {
+                                        getComments(e.url);
+                                    }}
+                                    className={style.PagenationLink}
+                                >
+                                    <svg
+                                        className={style.arrow}
+                                        fill="#80858b"
+                                        width="24px"
+                                        height="24px"
+                                        viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <g
+                                            id="SVGRepo_bgCarrier"
+                                            strokeWidth="0"
+                                        />
+
+                                        <g
+                                            id="SVGRepo_tracerCarrier"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+
+                                        <g id="SVGRepo_iconCarrier">
+                                            {" "}
+                                            <g data-name="Layer 2">
+                                                {" "}
+                                                <g data-name="arrow-ios-forward">
+                                                    {" "}
+                                                    <rect
+                                                        width="24"
+                                                        height="24"
+                                                        transform="rotate(-90 12 12)"
+                                                        opacity="0"
+                                                    />{" "}
+                                                    <path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />{" "}
+                                                </g>{" "}
+                                            </g>{" "}
+                                        </g>
+                                    </svg>
+                                </Link>
+                            );
+                        } else if (
+                            index > getCom.current_page - 3 &&
+                            index < getCom.current_page + 3
+                        ) {
+                            return (
+                                <Link
+                                    key={index}
+                                    onClick={() => {
+                                        getComments(e.url);
+                                    }}
+                                    className={
+                                        e.active
+                                            ? style.PagenationLinkActiv
+                                            : style.PagenationLink
+                                    }
+                                >
+                                    {e.label}
+                                </Link>
+                            );
+                        } else if (index == getCom.links.length - 2) {
+                            return (
+                                <div key={index}>
+                                    <span className={style.PagenationLink}>
+                                        ...
+                                    </span>
+                                    <Link
+                                        key={index}
+                                        onClick={() => {
+                                            getComments(e.url);
+                                        }}
+                                        className={
+                                            e.active
+                                                ? style.PagenationLinkActiv
+                                                : style.PagenationLink
+                                        }
+                                    >
+                                        {e.label}
+                                    </Link>
+                                </div>
+                            );
+                        } else if (index == 1) {
+                            return (
+                                <div key={index}>
+                                    <Link
+                                        key={index}
+                                        onClick={() => {
+                                            getComments(e.url);
+                                        }}
+                                        className={
+                                            e.active
+                                                ? style.PagenationLinkActiv
+                                                : style.PagenationLink
+                                        }
+                                    >
+                                        {e.label}
+                                    </Link>
+
+                                    <span className={style.PagenationLink}>
+                                        ...
+                                    </span>
+                                </div>
+                            );
+                        } else if (index < getCom.current_page - 4) {
+                            return (
+                                <Link
+                                    key={index}
+                                    onClick={() => {
+                                        getComments(e.url);
+                                    }}
+                                    className={
+                                        e.active
+                                            ? style.PagenationLinkActiv
+                                            : style.PagenationLink
+                                    }
+                                >
+                                    {e.label}
+                                </Link>
+                            );
+                        }
+                    })}
             </div>
         </div>
     );
