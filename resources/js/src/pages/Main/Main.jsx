@@ -14,14 +14,14 @@ export const Main = () => {
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
     const navigate = useNavigate();
     // const [pageNum, pageNumFunction] = useState("");
-    // console.log(films);
+
     let films = useSelector((state) => state.films.data);
-    // console.log(films.data);
+
     const dispatch = useDispatch();
-    console.log(GenreFilmsAll);
+
     const dataFilms = async (page) => {
         const films = await PagesFilms(page);
-        console.log(films);
+
         GenreFilmsAllFunction(films);
         dispatch(setFilms(films));
     };
@@ -29,7 +29,7 @@ export const Main = () => {
         if (id !== undefined) {
             const filmsGen = GenreFilms(id);
             GenreFilmsAllFunction(filmsGen);
-            // console.log(GenreFilmsAll);
+
             return filmsGen;
         }
     };
@@ -45,8 +45,6 @@ export const Main = () => {
             <div className={styles.content}>
                 {films &&
                     films.data.map((e, num) => {
-                        // console.log(e);
-
                         return (
                             <MovieBlock
                                 key={e.id}

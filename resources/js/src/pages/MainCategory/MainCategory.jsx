@@ -12,34 +12,26 @@ import pagesRoutes from "../../routes/pagesRoutes";
 export const MainCategory = () => {
     const idCotegory = useLoaderData();
     const loader = useLocation();
-    // const { state } = loader;
-    console.log(idCotegory);
-    // const idCotegory = useLoaderData();
+
 
     const Url = `http://diplom.loc/api/CategoryFilms/${idCotegory}`;
 
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
 
     const FilmsGenre = async (Url) => {
-        console.log(Url);
         const filmsGen = await CategoryFilms(Url);
-        console.log(filmsGen);
+
         GenreFilmsAllFunction(filmsGen);
 
         return filmsGen;
     };
-    console.log(GenreFilmsAll);
+
     useEffect(() => {
         FilmsGenre(Url);
     }, []);
     useEffect(() => {
         FilmsGenre(Url);
     }, [loader]);
-
-    // useEffect(() => {
-    //   FilmsCategory(UrlCotegory);
-    // }, [idCotegory]);
-    console.log(GenreFilmsAll);
 
     return (
         <div className={styles.Main}>

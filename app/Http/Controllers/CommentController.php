@@ -25,7 +25,7 @@ class CommentController extends Controller
         // }
 
         foreach ($Comments as $value) {
-            $CommentsG[]=$value->CommentFilm;
+            $CommentsG[]=$value->CommentUser;
         }
 
     

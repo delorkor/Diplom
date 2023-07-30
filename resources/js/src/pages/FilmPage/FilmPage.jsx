@@ -11,47 +11,53 @@ import { Textarea } from "../../components/Textarea/Textarea";
 import { AddComents } from "../../reqests/AddComents";
 import { CommentFilms } from "../../reqests/CommentFilms";
 import { Link } from "../../components/Link/Link";
+import { useNavigate } from "react-router-dom";
+import pagesRoutes from "../../routes/pagesRoutes";
+
 export const FilmPage = () => {
     const id = useLoaderData();
     const [oneFilm, oneFilmFunction] = useState(false);
     const [getCom, getComFilmFunction] = useState(false);
     const [Comments, CommentsFunction] = useState("");
+    const [CommentsUpdate, CommentsUpdateFunction] = useState("");
     const user = useSelector((state) => state.user);
     const uri = `http://diplom.loc/api/Comments/film/${id}`;
+    const navigate = useNavigate();
     const getFilms = async (id) => {
-        console.log(id);
+        // console.log(id);
         const films = await getOnlyFilms(id);
 
         oneFilmFunction(films);
-
+        navigate(pagesRoutes.MOVIE_PAGE + "/" + `${id}`);
         return films;
     };
 
     const getComments = async (uri) => {
-        console.log(uri);
         const comment = await CommentFilms(uri);
         getComFilmFunction(comment);
-        console.log(getCom);
+
         return comment;
     };
-    console.log(getCom);
+
     const DelFilm = async (e) => {
-        console.log(e.target.id);
         const Delete = await DeleteFilms(e.target.id);
+        // navigate(pagesRoutes.MAIN);
         return Delete;
     };
     useEffect(() => {
         getFilms(id);
         getComments(uri);
     }, []);
-    console.log(getCom);
 
     const CommentsAdd = async () => {
         const form = new FormData();
         form.append("text", Comments);
         form.append("id", id);
         const fileDown = AddComents(form);
-        console.log(fileDown);
+        CommentsFunction("");
+        CommentsUpdateFunction(fileDown);
+
+        window.location.reload();
     };
 
     return (
@@ -150,15 +156,23 @@ export const FilmPage = () => {
                     className={style.Textarea}
                     value={Comments}
                 ></Textarea>
-                <button onClick={CommentsAdd}>Отправить</button>
+                <button className={style.FilmsComp} onClick={CommentsAdd}>
+                    Отправить
+                </button>
             </div>
+
             <div className={style.CommentWrapper}>
                 {getCom &&
                     getCom.data.map((i) => {
-                        // console.log(i);
+                        // console.log(i.comment_user.name);
                         return (
-                            <div key={i.id} className={style.ComentsUser}>
-                                {i.text}
+                            <div key={i.id}>
+                                <div className={style.name}>
+                                    {i.comment_user.name}
+                                </div>
+                                <div className={style.ComentsUser}>
+                                    {i.text}
+                                </div>
                             </div>
                         );
                     })}
@@ -167,7 +181,7 @@ export const FilmPage = () => {
                 {getCom &&
                     getCom.links.map((e, index) => {
                         {
-                            console.log(e);
+                            // console.log(e);
                         }
                         if (index == 0) {
                             return (

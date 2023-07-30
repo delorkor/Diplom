@@ -16,12 +16,13 @@ export const Navigation = () => {
     const [setFiles, setFilesFunction] = useState(null);
     const [UserAdmin, getUserAdminFunction] = useState(false);
     const user = useSelector((state) => state.user);
-    console.log(user);
+    const [data, setData] = useState({});
+    const [location, setLocation] = useState("");
+
     const hendlerChange = (e) => {
-        console.log(e.target.files);
         setFilesFunction(e.target.files[0]);
     };
-    console.log(UserAdmin);
+
     const Genre = async () => {
         const GanreAll = await getGenre();
         getGanreFunction(GanreAll);
@@ -32,15 +33,25 @@ export const Navigation = () => {
         getCotegoryFunction(CotegoryAll);
         return CotegoryAll;
     };
-    // console.log(WeatherReqest());
+
     useEffect(() => {
         Genre();
         Cotegory();
+    }, []);
 
-        // if (localStorage.getItem("user")) {
-        //     const user = JSON.parse(localStorage.getItem("user")).user;
-        //     getUserAdminFunction(user);
-        // }
+    const searchLocation = async (event) => {
+        if (event.key === "Enter") {
+            localStorage.setItem("City", location);
+            const form = new FormData();
+            form.append("name", location);
+            const Weater = await WeatherReqest(location);
+            localStorage.setItem("weater", Weater.data);
+            setData(JSON.parse(localStorage.getItem("weater")));
+            setLocation("");
+        }
+    };
+    useEffect(() => {
+        setData(JSON.parse(localStorage.getItem("weater")));
     }, []);
 
     const exit = (e) => {
@@ -51,14 +62,49 @@ export const Navigation = () => {
 
     return (
         <nav className={style.Navigation}>
-            <NavLink to={pagesRoutes.WEATHER} className={style.Linknavigation}>
+            <div className={style.search}>
+                <input
+                    value={location}
+                    onChange={(event) => setLocation(event.target.value)}
+                    // onKeyDown={searchLocation}
+
+                    onKeyPress={searchLocation}
+                    placeholder="Enter Location"
+                    type="text"
+                />
+                <div className={style.City}>
+                    {localStorage.getItem("City")
+                        ? localStorage.getItem("City")
+                        : ""}
+                </div>
+                <div className={style.temp}>
+                    {data.main ? (
+                        <span>Температура: {data.main.temp.toFixed()}°С</span>
+                    ) : null}
+                    <br />
+                    {data.main ? (
+                        <span>
+                            Ощущается как: {data.main.feels_like.toFixed()}°C
+                        </span>
+                    ) : null}
+                    <br />
+                    {data.main ? (
+                        <span>Влажность: {data.main.humidity}%</span>
+                    ) : null}{" "}
+                    <br />
+                    {data.wind ? (
+                        <span> Скорость: {data.wind.speed.toFixed()} м/с,</span>
+                    ) : null}{" "}
+                    <br />
+                </div>
+            </div>
+            {/* <NavLink to={pagesRoutes.WEATHER} className={style.Linknavigation}>
                 Погода
-            </NavLink>
+            </NavLink> */}
             <div className={style.NameList}>Жанры</div>
             <ul className={style.ListNavi}>
                 {getGanre &&
                     getGanre.data.map((index) => {
-                        // console.log(index.id);
                         return (
                             <li key={index.id} className={style.List}>
                                 <NavLink
@@ -84,7 +130,6 @@ export const Navigation = () => {
                 <div className={style.NameList}>Котегории</div>
                 {getCoteg &&
                     getCoteg.data.map((index) => {
-                        // console.log(index.id);
                         return (
                             <li className={style.List} key={index.id}>
                                 <NavLink

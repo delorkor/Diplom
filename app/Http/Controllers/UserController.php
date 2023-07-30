@@ -22,7 +22,7 @@ class UserController extends Controller
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
         $dataUser=['name' => $request->get('name'), 'email' => $request->get('email'),'password' =>$request->get('password')];
-        Mail::to($request->get('email'))->send(new UserMailForm($dataUser));
+        Mail::to($request->get('email'))->send(new UserRegistr($dataUser));
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',

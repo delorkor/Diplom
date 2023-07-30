@@ -13,18 +13,14 @@ export const MainGenre = () => {
     const id = useLoaderData();
     const loader = useLocation();
     const { state } = loader;
-    console.log(id);
-    // const idCotegory = useLoaderData();
-    // console.log(idCotegory);
-    // const UrlCotegory = `http://diplom.loc/api/CategoryFilms/${idCotegory}`;
+
     const Url = `http://diplom.loc/api/GenreFilms/${id}`;
 
-    // console.log(Url);
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
-    console.log(GenreFilmsAll);
+
     const FilmsGenre = async (Url) => {
         const filmsGen = await GenreFilms(Url);
-        console.log(filmsGen);
+
         GenreFilmsAllFunction(filmsGen);
 
         return filmsGen;
@@ -36,17 +32,11 @@ export const MainGenre = () => {
         FilmsGenre(Url);
     }, [loader]);
 
-    // useEffect(() => {
-    //   FilmsCategory(UrlCotegory);
-    // }, [idCotegory]);
-    console.log(GenreFilmsAll);
-
     return (
         <div className={styles.Main}>
             <div className={styles.content}>
                 {GenreFilmsAll &&
                     GenreFilmsAll.data.map((e) => {
-                        console.log(e);
                         return <MovieBlock key={e.id} data={e} />;
                     })}
             </div>

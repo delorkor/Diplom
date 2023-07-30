@@ -18,26 +18,19 @@ export const MainSearch = () => {
     if (!state) {
         navigate(pagesRoutes.MAIN);
     }
-    console.log(state);
-    // const idCotegory = useLoaderData();
-    // console.log(idCotegory);
-
     const [GenreFilmsAll, GenreFilmsAllFunction] = useState(false);
     const [Empty, EmptyFunction] = useState(true);
-    console.log(GenreFilmsAll);
+
     useEffect(() => {
         SearchFilm(state);
     }, [loader]);
-    console.log(GenreFilmsAll);
+
     const SearchFilm = async (state) => {
         const form = new FormData();
 
         form.append("text", state);
         const SearchF = await Search(form);
-        // if (SearchF == "undefined") {
-        //     SearchF = [(data) => []];
-        // }
-        console.log(GenreFilmsAll);
+
         GenreFilmsAllFunction(SearchF);
     };
     let DataLength;

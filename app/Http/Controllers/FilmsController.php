@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Films;
 use App\Models\Genre;
 use App\Models\Category;
+use App\Models\Comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -94,9 +95,13 @@ class FilmsController extends Controller
 
     public function deleteFilms(Request $request)
     {
+         
+
         $films=Films::findorFail($request->route('id'));
+        $comments =Comments::where('films_id',$request->route('id'));
         if ($request->user()->can('add',$request->user())) {
             $films->genres()->detach();
+            $comments->delete();
             $films->delete();
             Storage::disk('public')->delete($films->name_film);
             Storage::disk('public')->delete($films->name_img_film);

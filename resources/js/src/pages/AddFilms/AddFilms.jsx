@@ -14,6 +14,7 @@ import { schema } from "./ValidFiles";
 
 export const AddFilms = () => {
     const navigate = useNavigate();
+    // const [setFilesErrors, setFilesErrorsFunction] = useState(true);
     const [setFiles, setFilesFunction] = useState(null);
     const [setPoster, setPoserFunction] = useState(null);
     const [getCot, getCotegoryFunction] = useState(false);
@@ -25,7 +26,7 @@ export const AddFilms = () => {
     const downloadFile = () => {
         filePicker.current.click();
     };
-    console.log(category_idValid);
+    // console.log(category_idValid);
     const downloadPoster = () => {
         posterPicker.current.click();
     };
@@ -62,7 +63,8 @@ export const AddFilms = () => {
 
     // console.log(getGanre);
     const hendlerUpload = async (data) => {
-        if (!data["category_id"]) {
+        if (!setFiles || !setPoster) {
+            console.log(category_idValid);
             category_idValidFunction(false);
         } else {
             console.log(data);
@@ -135,15 +137,21 @@ export const AddFilms = () => {
                         >
                             video download
                         </ButtonComp>
+
                         <ButtonComp
                             className={style.InpytDescrFile}
                             onClick={downloadPoster}
                         >
                             poster download
                         </ButtonComp>
+
                         {/* </div> */}
                     </div>
-
+                    {!category_idValid && (
+                        <span style={{ color: "#ff0000", fontSize: 18 }}>
+                            Выберете видео и постер
+                        </span>
+                    )}
                     <div className={style.blockDescriptionDate}>
                         <div className={style.InputWrapper}>
                             <div className={style.TextDescr}>Category</div>
@@ -170,13 +178,6 @@ export const AddFilms = () => {
                             <span style={{ color: "#ff0000", fontSize: 18 }}>
                                 {errors.category_id?.message}
                             </span>
-                            {!category_idValid && (
-                                <span
-                                    style={{ color: "#ff0000", fontSize: 18 }}
-                                >
-                                    Выберете жанр
-                                </span>
-                            )}
                         </div>
 
                         <div className={style.InputWrapper}>

@@ -30,19 +30,11 @@ export const ModalSignIn = () => {
 
     // { resolver: yupResolver(schema) }
     const onSubmitSihnIn = async (data) => {
+        console.log(data);
         const Users = await postUsers(data);
+        navigate(pagesRoutes.MAIN);
     };
-    // const UserAuth = async (data) => {
-    //     const UsersAuth = await AuthUser(data);
-    //     console.log(UsersAuth);
-    //     if (UsersAuth.user) {
-    //         dispatch(setFirstId(UsersAuth.user));
-    //         localStorage.setItem("user", JSON.stringify(UsersAuth));
-    //         console.log(UsersAuth);
-    //         navigate(pagesRoutes.MAIN);
-    //     }
-    //     console.log(UsersAuth);
-    // };
+
     const dataAuth = {
         email: modalEmail,
         password: modalpasswoed,
@@ -209,7 +201,7 @@ export const ModalSignIn = () => {
                                 onChange={() => {}}
                             ></Input>
                         </div>
-                        <ButtonComp className={style.buttinAuth}>
+                        <ButtonComp type="submit" className={style.buttinAuth}>
                             Регистрация
                         </ButtonComp>
                         <div className={style.headerModal}>

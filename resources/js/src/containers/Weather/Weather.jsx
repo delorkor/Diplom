@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import style from "./Weather.module.css";
+import { WeatherReqest } from "../../reqests/WeatherReqest ";
 export const Weather = () => {
     const [data, setData] = useState({});
     const [location, setLocation] = useState("");
@@ -8,16 +9,22 @@ export const Weather = () => {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=Minsk&units=imperial&appid=4c205beb0b199b332f37ff275c4fcc8d`;
 
     const searchLocation = async () => {
+        const form = new FormData();
+        form.append("name", location);
+        const Weater = await WeatherReqest(form);
         // if (event.key === "Enter") {
-        console.log("aaaaa");
-        await axios.get(url).then((response) => {
-            setData(response.data);
-            console.log(response.data);
-        });
-        console.log(data);
+        // console.log(Weater.data);
+        // await axios.get(url).then((response) => {
+
+        setData(JSON.parse(Weater.data));
+
+        //     console.log(response.data);
+        // });
+        // console.log(data);
         setLocation("");
         // }
     };
+    console.log(data);
 
     return (
         <div className={style.app}>
@@ -40,7 +47,7 @@ export const Weather = () => {
                     </div>
                     <div className={style.temp}>
                         {data.main ? (
-                            <h1>{data.main.temp.toFixed()}°F</h1>
+                            <h1>{data.main.temp.toFixed()}°С</h1>
                         ) : null}
                     </div>
                     <div className={style.description}>

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
+use App\Models\Films;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Comments extends Model
 {
@@ -14,7 +16,8 @@ class Comments extends Model
         'films_id',
         'user_id',
     ];
-    public function CommentFilm(){
-        return $this->belongsTo(Category::class,'films_id');
+    public function CommentUser(){
+        return $this->belongsTo(User::class,'user_id');
+        // return $this->hasMany(Films::class,'films_id','id');
     }
 }

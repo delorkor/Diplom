@@ -25,25 +25,13 @@ export const UserPage = () => {
 
     const UserData = useSelector((state) => state.user);
     const [Passworn_now_two, Passworn_now_twoFunction] = useState("");
-    console.log(UserData);
+    const [Passworn_now_twoError, Passworn_now_twoErrorFunction] =
+        useState(true);
+
     // console.log(Passworn_now_two);
     const unwrap = () => {
         unwrapHeigtFunction([700, "block"]);
     };
-
-    // useEffect(
-    //     (UserData) => {
-    //         setDataFunction({
-    //             email: UserData.email,
-    //             id: UserData.id,
-    //             name: UserData.name,
-    //             password: UserData.password,
-    //             password_now: UserData.password_now,
-    //         });
-    //     },
-    //     [UserData]
-    // );
-    // console.log(Data);
 
     const UpdateUserName = (e) => {
         dispatch(stateName({ name: e.target.value }));
@@ -59,14 +47,18 @@ export const UserPage = () => {
     };
 
     const SaveUpdate = async (e) => {
-        // e.preventDefault();
-        if (UserData.password_now == "") {
+        e.preventDefault();
+        if (UserData.password_now != "") {
             if (UserData.password_now == Passworn_now_two) {
                 const Users = await UpdateUser(UserData);
                 console.log(Users);
+                navigate(pagesRoutes.MAIN);
+            } else {
+                Passworn_now_twoErrorFunction(false);
             }
         } else {
             const Users = await UpdateUser(UserData);
+            navigate(pagesRoutes.MAIN);
             console.log(Users);
         }
     };
@@ -80,7 +72,7 @@ export const UserPage = () => {
                         <div className={style.TextDescr}>{UserData.name}</div>
                     </div>
                     <div className={style.InputWrapper}>
-                        <div className={style.TextDescr}>Email:</div>
+                        <div className={style.TextDescr}>Почта:</div>
                         <div className={style.TextDescr}>{UserData.email}</div>
                     </div>
 
@@ -110,7 +102,7 @@ export const UserPage = () => {
                             ></Input>
                         </div>
                         <div className={style.InputWrapperUpdate}>
-                            <div className={style.TextDescr}>Email</div>
+                            <div className={style.TextDescr}>Почта</div>
                             <Input
                                 onChange={UpdateUserEmail}
                                 type="text"
@@ -140,6 +132,13 @@ export const UserPage = () => {
                                 // value={"s"}
                                 readonly="readonly"
                             ></Input>
+                            {!Passworn_now_twoError && (
+                                <span
+                                    style={{ color: "#ff0000", fontSize: 18 }}
+                                >
+                                    Пароль не совпадает
+                                </span>
+                            )}
                         </div>
                         <div className={style.InputWrapperUpdate}>
                             <div className={style.TextDescr}>
@@ -165,7 +164,7 @@ export const UserPage = () => {
                                 navigate(pagesRoutes.MAIN);
                             }}
                         >
-                            Cancel
+                            Выход
                         </ButtonComp>
                         {unwrapHeigt[0] === 0 ? (
                             ""
@@ -176,7 +175,7 @@ export const UserPage = () => {
                                 className={style.ButtonAddSave}
                                 type="submit"
                             >
-                                Save
+                                Сохранить
                             </ButtonComp>
                         )}
                     </div>

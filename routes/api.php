@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\FilmsController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\WeatherController;
 use App\Http\Controllers\CategoryController;
 
 
@@ -24,7 +25,7 @@ use App\Http\Controllers\CategoryController;
 //     return $request->user();
 // }); 
 // Route::put('/create/users/{id}',[UserController::class, 'createUser'])->name('createUser'); //обнавить пользователя
-
+Route::GET('/Weather',[WeatherController::class, 'WeatherData'])->name('WeatherData');//погода
 Route::post('/regisration',[UserController::class, 'postUser'])->name('postUser');//Добавление пользователя
 Route::post('/login',[UserController::class, 'loginUser'])->name('loginUser');//авторизация
 Route::get('/Films',[FilmsController::class, 'allFilms'])->name('allFilms');//все фильм
@@ -35,6 +36,7 @@ Route::get('/GenreAll',[GenreController::class, 'allGenre'])->name('AllGenre');/
 Route::get('/GenreFilms/{id}',[FilmsController::class, 'GenreFilms'])->name('GenreFilms');//фильм по жанрам
 Route::get('/CategoryFilms',[CategoryController::class, 'CategoryAll'])->name('Category');//все котегории
 Route::get('/Comments/film/{id}',[CommentController::class, 'allComments'])->name('allComments');//все котегории
+
 Route::get('/Category/{id}',[CategoryController::class, 'CategoryOne'])->name('CategoryOne'); //категория
 Route::get('/CategoryFilms/{id}',[CategoryController::class, 'CategoryFilms'])->name('CategoryFilms');//фильм по категориям
 // Route::post('/add/Films',[FilmsController::class, 'addFilms'])->name('addFilms');//***************** */
