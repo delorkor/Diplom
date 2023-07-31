@@ -31,7 +31,7 @@ export const FilmPage = () => {
         navigate(pagesRoutes.MOVIE_PAGE + "/" + `${id}`);
         return films;
     };
-
+    console.log(getCom);
     const getComments = async (uri) => {
         const comment = await CommentFilms(uri);
         getComFilmFunction(comment);
@@ -41,7 +41,7 @@ export const FilmPage = () => {
 
     const DelFilm = async (e) => {
         const Delete = await DeleteFilms(e.target.id);
-        // navigate(pagesRoutes.MAIN);
+        navigate(pagesRoutes.MAIN);
         return Delete;
     };
     useEffect(() => {
@@ -78,7 +78,7 @@ export const FilmPage = () => {
                     </div>
 
                     <div className={style.blockLink}>
-                        {user.role === 1 ? (
+                        {user.role === 1 || localStorage.getItem("user") ? (
                             <ButtonComp
                                 id={id}
                                 className={style.deleteFilms}
@@ -144,27 +144,31 @@ export const FilmPage = () => {
                     </div>
                 </div>
             </div>
-            <div className={style.Coments}>
-                {" "}
-                <Textarea
-                    onChange={(e) => {
-                        CommentsFunction(e.target.value);
-                    }}
-                    type="text"
-                    // {...register("description")}
-                    // error={errors.description?.message}
-                    className={style.Textarea}
-                    value={Comments}
-                ></Textarea>
-                <button className={style.FilmsComp} onClick={CommentsAdd}>
-                    Отправить
-                </button>
-            </div>
+            {localStorage.getItem("user") ? (
+                <div className={style.Coments}>
+                    {" "}
+                    <Textarea
+                        onChange={(e) => {
+                            CommentsFunction(e.target.value);
+                        }}
+                        type="text"
+                        // {...register("description")}
+                        // error={errors.description?.message}
+                        className={style.Textarea}
+                        value={Comments}
+                    ></Textarea>
+                    <button className={style.FilmsComp} onClick={CommentsAdd}>
+                        Отправить
+                    </button>
+                </div>
+            ) : (
+                ""
+            )}
 
             <div className={style.CommentWrapper}>
                 {getCom &&
                     getCom.data.map((i) => {
-                        // console.log(i.comment_user.name);
+                        
                         return (
                             <div key={i.id}>
                                 <div className={style.name}>

@@ -31,11 +31,13 @@ export const AddFilms = () => {
         posterPicker.current.click();
     };
     const hendlerChange = (e) => {
+        e.preventDefault();
         // console.log(e.target.files);
         setFilesFunction(e.target.files[0]);
     };
     const PosterChange = (e) => {
         // console.log(e.target.files);
+        e.preventDefault();
         setPoserFunction(e.target.files[0]);
     };
     const Genre = async () => {
@@ -89,9 +91,9 @@ export const AddFilms = () => {
             const fileDown = addFilms(form);
             // spinerDownloadFunction(fileDown);
             console.log(fileDown);
-            if (fileDown) {
-                navigate(pagesRoutes.MAIN);
-            }
+            // if (fileDown) {
+            //     navigate(pagesRoutes.MAIN);
+            // }
         }
     };
 
@@ -122,6 +124,7 @@ export const AddFilms = () => {
                             className={style.InpytDescrFileNone}
                             placeholder="film"
                             onChange={hendlerChange}
+                            accept="video/*"
                         ></Input>
                         <Input
                             type="file"
@@ -129,6 +132,7 @@ export const AddFilms = () => {
                             className={style.InpytDescrFileNone}
                             placeholder="poster"
                             onChange={PosterChange}
+                            accept="image/*"
                         ></Input>
 
                         <ButtonComp
@@ -198,7 +202,13 @@ export const AddFilms = () => {
                                 {getGanre &&
                                     getGanre.data.map((items) => {
                                         return (
-                                            <div key={items.id}>
+                                            <div
+                                                className={
+                                                    style.wrapperCheckMap
+                                                }
+                                                key={items.id}
+                                            >
+                                                {items.name}
                                                 <input
                                                     {...register("check")}
                                                     className={style.CheckBox}
@@ -206,7 +216,6 @@ export const AddFilms = () => {
                                                     type="checkbox"
                                                     value={items.id}
                                                 />
-                                                {items.name}
                                             </div>
                                         );
                                     })}

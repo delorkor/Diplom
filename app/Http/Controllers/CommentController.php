@@ -23,14 +23,17 @@ class CommentController extends Controller
         //     $film->name_img_film=asset( Storage::url($film->name_img_film));
         //     $films[$key]=$film;
         // }
+        if ( !empty($Comments) ) {
+            foreach ($Comments as $value) {
+                $CommentsG[]=$value->CommentUser;
+               
+            }     
+            return response()->json([$Comments,$CommentsG], 201);                 
+        } 
+        
+        else{return response()->json([], 201);}
 
-        foreach ($Comments as $value) {
-            $CommentsG[]=$value->CommentUser;
-        }
-
-    
-        return response()->json([$Comments,$CommentsG], 201);
-     
+       
     }
     public function addCommentsFilms(Request $request)
     {

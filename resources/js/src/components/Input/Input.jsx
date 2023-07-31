@@ -3,6 +3,7 @@ import style from "./input.module.css";
 export const Input = forwardRef(
     (
         {
+            accept,
             onChange,
             className,
             placeholder,
@@ -28,6 +29,7 @@ export const Input = forwardRef(
                     type={type}
                     // readOnly={readonly}
                     onChange={onChange}
+                    accept={accept}
                 />
                 {error && <span className={style.styleError}>{error}</span>}
             </>
