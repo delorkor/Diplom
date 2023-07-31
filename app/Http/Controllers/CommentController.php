@@ -11,18 +11,13 @@ class CommentController extends Controller
 
     public function allComments($id)
     {
-        // // $films = Films::all();
-        // $Comments = Comments::all();
      
         $Comments = Comments::query()
         ->where('films_id',$id)
         ->orderBy('id','desc')
         ->paginate(10);
        
-        // foreach ($films as $key => $film) {
-        //     $film->name_img_film=asset( Storage::url($film->name_img_film));
-        //     $films[$key]=$film;
-        // }
+      
         if ( !empty($Comments) ) {
             foreach ($Comments as $value) {
                 $CommentsG[]=$value->CommentUser;
@@ -31,7 +26,6 @@ class CommentController extends Controller
             return response()->json([$Comments,$CommentsG], 201);                 
         } 
         
-        else{return response()->json([], 201);}
 
        
     }

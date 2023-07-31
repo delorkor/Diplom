@@ -88,12 +88,13 @@ export const AddFilms = () => {
 
             form.append("name_img_film", setPoster);
             console.log(form.get("Year"));
-            const fileDown = addFilms(form);
-            // spinerDownloadFunction(fileDown);
-            console.log(fileDown);
-            // if (fileDown) {
-            //     navigate(pagesRoutes.MAIN);
-            // }
+            spinerDownloadFunction(true);
+            const fileDown = await addFilms(form);
+            spinerDownloadFunction(false);
+
+            if (fileDown) {
+                navigate(pagesRoutes.MAIN);
+            }
         }
     };
 
@@ -242,7 +243,7 @@ export const AddFilms = () => {
                                 </span>
                             </>
                         ) : (
-                            <h1>"DOWNLOAD..."</h1>
+                            <h2 style={{color:'#fff'}} >Загрузка...</h2>
                         )}
                     </div>
                     <div className={style.blockButton}>

@@ -64,6 +64,7 @@ class FilmsController extends Controller
         $img=$request->file("name_img_film");
 
            Storage::disk('public')->makeDirectory('FILMS_img');
+           Storage::disk('public')->makeDirectory('FILMS');
           $name_film=Storage::disk('public')->putFile('FILMS',$film);
           $name_img=Storage::disk('public')->putFile('FILMS_img',$img);
             $films = Films::create([
@@ -80,7 +81,11 @@ class FilmsController extends Controller
             $films->genres()->attach($genre);
             // $films->genres()->attach([1,2,3,4]);
         // return response()->json($request->user()->id, 201);
-            return response()->json($films, 201);
+        return response()->json($films, 201);
+        if (is_uploaded_file($name_film)) {
+           
+        }
+            
         }
         else {
             return response()->json([
