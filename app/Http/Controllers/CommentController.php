@@ -17,14 +17,14 @@ class CommentController extends Controller
         ->orderBy('id','desc')
         ->paginate(10);
        
-      
-        if ( !empty($Comments) ) {
+        $CommentsG=[];
+        // if ( !empty($Comments) ) {
             foreach ($Comments as $value) {
                 $CommentsG[]=$value->CommentUser;
                
             }     
             return response()->json([$Comments,$CommentsG], 201);                 
-        } 
+        // } 
         
 
        

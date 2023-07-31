@@ -78,7 +78,7 @@ export const FilmPage = () => {
                     </div>
 
                     <div className={style.blockLink}>
-                        {user.role === 1 || localStorage.getItem("user") ? (
+                        {user.role === 1 && localStorage.getItem("user") ? (
                             <ButtonComp
                                 id={id}
                                 className={style.deleteFilms}
@@ -168,7 +168,6 @@ export const FilmPage = () => {
             <div className={style.CommentWrapper}>
                 {getCom &&
                     getCom.data.map((i) => {
-                        
                         return (
                             <div key={i.id}>
                                 <div className={style.name}>
