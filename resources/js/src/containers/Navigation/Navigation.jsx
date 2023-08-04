@@ -63,6 +63,7 @@ export const Navigation = () => {
     return (
         <nav className={style.Navigation}>
             <div className={style.search}>
+                <div className={style.NameList}>Погода</div>
                 <input
                     value={location}
                     onChange={(event) => setLocation(event.target.value)}
@@ -77,26 +78,36 @@ export const Navigation = () => {
                         ? localStorage.getItem("City")
                         : ""}
                 </div>
-                <div className={style.temp}>
-                    {data.main ? (
-                        <span>Температура: {data.main.temp.toFixed()}°С</span>
-                    ) : null}
-                    <br />
-                    {data.main ? (
-                        <span>
-                            Ощущается как: {data.main.feels_like.toFixed()}°C
-                        </span>
-                    ) : null}
-                    <br />
-                    {data.main ? (
-                        <span>Влажность: {data.main.humidity}%</span>
-                    ) : null}{" "}
-                    <br />
-                    {data.wind ? (
-                        <span> Скорость: {data.wind.speed.toFixed()} м/с,</span>
-                    ) : null}{" "}
-                    <br />
-                </div>
+                {data ? (
+                    <div className={style.temp}>
+                        {data.main ? (
+                            <span>
+                                Температура: {data.main.temp.toFixed()}°С
+                            </span>
+                        ) : null}
+                        <br />
+                        {data.main ? (
+                            <span>
+                                Ощущается как: {data.main.feels_like.toFixed()}
+                                °C
+                            </span>
+                        ) : null}
+                        <br />
+                        {data.main ? (
+                            <span>Влажность: {data.main.humidity}%</span>
+                        ) : null}{" "}
+                        <br />
+                        {data.wind ? (
+                            <span>
+                                {" "}
+                                Скорость: {data.wind.speed.toFixed()} м/с,
+                            </span>
+                        ) : null}{" "}
+                        <br />
+                    </div>
+                ) : (
+                    ""
+                )}
             </div>
             {/* <NavLink to={pagesRoutes.WEATHER} className={style.Linknavigation}>
                 Погода
