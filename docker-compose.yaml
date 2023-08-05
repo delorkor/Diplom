@@ -6,35 +6,36 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
-    links:
-      - mysql-service
+    # links:
+    #   - mysql-service
     volumes:
       - ./:/var/www/html
 
-  mysql-service:
-    container_name: mysql-service
-    image: mariadb:10.8.3
-    environment:
-      # - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=DIPLOM
-
   # mysql-service:
   #   container_name: mysql-service
-  #   image: mysql:8.0.0
+  #   image: mariadb:10.8.3
   #   environment:
-  #     MYSQL_ROOT_PASSWORD:
-  #     MYSQL_PASSWORD:
-  #     MYSQL_USER: "root"
-  #     MYSQL_DATABASE: DIPLOM
+  #     - MYSQL_ROOT_PASSWORD=123
+  #     # - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+  #     - MYSQL_DATABASE=DIPLOM
+  #   env_file:
+  #     - .env
+  mysql-service:
+    container_name: mysql-service
+    image: mysql:8.0.0
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_PASSWORD: 123
+      MYSQL_USER: "root"
+      MYSQL_DATABASE: DIPLOM
 
   web-service:
     image: nginx:latest
     volumes:
       - ./:/var/www/html
       - "./docker/web/:/etc/nginx/conf.d/"
-    links:
-      - php-service
+    # links:
+    #   - php-service
     ports:
       - "81:80"
 
@@ -45,7 +46,7 @@ services:
 
     volumes:
       - ./:/var/www/html
-      - ./:/resources/js
+      # - ./:/resources/js
     ports:
       - "3001:3000"
     tty: true
