@@ -13,7 +13,7 @@ import { Slyder } from "../containers/Slyder/Slyder";
 import style from "./../App.module.css";
 import { date } from "yup";
 import { UserPage } from "../pages/UserPage/UserPage";
-import { Weather } from "../containers/weather/Weather";
+import { Weather } from "../containers/Weather/Weather";
 
 const router = createBrowserRouter([
     {

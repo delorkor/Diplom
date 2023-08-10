@@ -22,3 +22,8 @@ Route::any('/{any}', function () {
 // Route::get('/', function () {
 //     return view('app');
 // });
+
+
+// Route::any('/{any}', function () {
+//     return Inertia::render('app');
+// })->where('any', '^((?!api).)*');
